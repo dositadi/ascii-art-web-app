@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"context"
 	"database/sql"
 	"log"
 	"net/http"
@@ -9,6 +10,7 @@ import (
 )
 
 type AsciiServices interface {
+	// App pages
 	GetAboutUs() ([]m.AboutUs, *m.Error)
 	RenderHomePage(w http.ResponseWriter) *m.Error
 	RenderLearnMorePage(w http.ResponseWriter) *m.Error
@@ -16,6 +18,13 @@ type AsciiServices interface {
 	// Auth pages
 	RenderLoginPage(w http.ResponseWriter) *m.Error
 	RenderSignupPage(w http.ResponseWriter) *m.Error
+
+	// Auth Handlers
+	RegisterUser(ctx context.Context, user m.User) *m.Error
+	LoginUser(email, password string) *m.Error
+
+	// App Service
+	TransformText(request m.Request) (string, *m.Error)
 }
 
 type Handler struct {

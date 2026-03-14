@@ -25,7 +25,7 @@ func (a *App) InitializeRoutes() {
 
 	a.Router.HandleFunc("GET /", a.ServiceHandler.HomePageHandler)
 	a.Router.HandleFunc("POST /auth/login", a.ServiceHandler.LoginPageHandler)
-	a.Router.HandleFunc("POST /auth/register", a.ServiceHandler.RegisterPageHandler)
+	a.Router.HandleFunc("POST /auth/register", a.ServiceHandler.RegisterHandler)
 	a.Router.HandleFunc("GET /ascii-art/learn-more", a.ServiceHandler.LearnMorePageHandler)
 	a.Router.HandleFunc("GET /ascii-art/about-us", a.ServiceHandler.AboutPageHandler)
 
