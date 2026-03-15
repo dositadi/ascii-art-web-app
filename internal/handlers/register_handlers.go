@@ -59,6 +59,6 @@ func (s *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/auth/login", http.StatusSeeOther)
 }
 
-func (s *Handler) RenderRegisterPageHandler(w http.ResponseWriter, r *http.Request) {
-	
+func (s *Handler) RegisterPageHandler(w http.ResponseWriter, r *http.Request) {
+
 }

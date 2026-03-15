@@ -81,17 +81,19 @@
       <div class="btn-stack">
 
         <!-- Primary: Signup -->
-        <a href={{.SignupRoute}} class="btn btn--signup">
-          <div class="btn__label">
-            <span class="btn__hint">New here?</span>
-            <span class="btn__text">Create an account</span>
-          </div>
-          <div class="btn__arrow">
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 7.5h9M8 3.5l4 4-4 4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </a>
+        <form action={{.SignupRoute}} method="GET">
+            <button type="submit" class="btn btn--signup">
+                <div class="btn__label">
+                    <span class="btn__hint">New here?</span>
+                    <span class="btn__text">Create an account</span>
+                </div>
+                <div class="btn__arrow">
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7.5h9M8 3.5l4 4-4 4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </button>
+        </form>
 
         <!-- Divider -->
         <div class="divider" aria-hidden="true">
@@ -101,17 +103,19 @@
         </div>
 
         <!-- Secondary: Login -->
-        <a href="{{.LoginRoute}}" class="btn btn--login">
-          <div class="btn__label">
-            <span class="btn__hint">Already a lover of art?</span>
-            <span class="btn__text">Sign in</span>
-          </div>
-          <div class="btn__arrow">
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 7.5h9M8 3.5l4 4-4 4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </a>
+        <form action={{.LoginRoute}} method="get">
+          <button type="submit" class="btn btn--login">
+            <div class="btn__label">
+                <span class="btn__hint">Already a lover of art?</span>
+                <span class="btn__text">Sign in</span>
+            </div>
+            <div class="btn__arrow">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 7.5h9M8 3.5l4 4-4 4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+          </button>
+        </form>
 
       </div><!-- /.btn-stack -->
 

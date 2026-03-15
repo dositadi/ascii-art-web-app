@@ -362,7 +362,6 @@ body {
   background: var(--milk);
   outline: none;
   transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-  -webkit-appearance: none;
 }
 
 .input-wrap input::placeholder {

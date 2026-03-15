@@ -33,8 +33,10 @@ func (a *App) InitializeRoutes() {
 	a.Router.HandleFunc("GET /", a.ServiceHandler.WelcomePageHandler)
 
 	// Auth route
+	a.Router.HandleFunc("GET /auth/login", a.ServiceHandler.LoginPageHandler)
 	a.Router.HandleFunc("POST /auth/login", a.ServiceHandler.LoginPageHandler)
 	a.Router.HandleFunc("POST /auth/register", a.ServiceHandler.RegisterHandler)
+	a.Router.HandleFunc("GET /auth/register", a.ServiceHandler.RegisterPageHandler)
 
 	// Pages route
 	a.Router.HandleFunc("GET /ascii-art/learn-more", a.ServiceHandler.LearnMorePageHandler)
