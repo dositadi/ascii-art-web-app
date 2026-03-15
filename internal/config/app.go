@@ -20,12 +20,23 @@ type App struct {
 	ServiceHandler h_.Handler
 }
 
+func (a *App) InitializeFileServers() {
+	pagesCSSFileServer := http.FileServer(http.Dir(h.STYLES_PATH))
+	pattern := "GET " + h.STYLES_PATH_PATTERN
+	a.Router.Handle(pattern, http.StripPrefix(h.STYLES_PATH_PATTERN, pagesCSSFileServer))
+}
+
 func (a *App) InitializeRoutes() {
 	a.Router = http.NewServeMux()
 
-	a.Router.HandleFunc("GET /", a.ServiceHandler.HomePageHandler)
+	// Welcome Page
+	a.Router.HandleFunc("GET /", a.ServiceHandler.WelcomePageHandler)
+
+	// Auth route
 	a.Router.HandleFunc("POST /auth/login", a.ServiceHandler.LoginPageHandler)
 	a.Router.HandleFunc("POST /auth/register", a.ServiceHandler.RegisterHandler)
+
+	// Pages route
 	a.Router.HandleFunc("GET /ascii-art/learn-more", a.ServiceHandler.LearnMorePageHandler)
 	a.Router.HandleFunc("GET /ascii-art/about-us", a.ServiceHandler.AboutPageHandler)
 
@@ -64,6 +75,7 @@ func (a *App) InitializeDatabase() *m.Error {
 	a.DB.SetConnMaxLifetime(time.Duration(10 * time.Minute))
 
 	a.InitializeRoutes()
+	a.InitializeFileServers()
 	return nil
 }
 
@@ -73,7 +85,7 @@ func (a *App) Run() {
 	}
 
 	server := http.Server{
-		Addr:              ":8083",
+		Addr:              ":8081",
 		Handler:           a.Router,
 		WriteTimeout:      10 * time.Second,
 		IdleTimeout:       10 * time.Second,

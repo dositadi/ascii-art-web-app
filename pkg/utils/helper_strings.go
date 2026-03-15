@@ -24,3 +24,22 @@ const (
 	EMPTY_PASSWORD_FIELD_DETAIL = "Oops, you skipped your name!."
 	EMPTY_PASSWORD_FIELD_CODE   = "400"
 )
+
+// Template parsing errors
+const (
+	PAGE_PARSING_ERROR = "Page parse error."
+	PAGE_PARSING_CODE  = "500"
+)
+
+// Request routes
+const (
+	LOGIN_ROUTE   = "/auth/login"
+	SIGNUP_ROUTE  = "/auth/register"
+	WELCOME_ROUTE = "/"
+)
+
+// Internal folder path
+const (
+	STYLES_PATH_PATTERN = "/web/static/styles/"
+	STYLES_PATH         = "web/static/styles"
+)

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASCIIForge — Welcome</title>
+  <link rel="stylesheet" href="web/static/styles/welcome.css"/>
+</head>
+
+<body>
+  <!-- ── ASCII tiled background (pure HTML, no JS) ── -->
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="bg-row"><span>█ ▓ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } █ ▓ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ | / \ -</span></div>
+    <div class="bg-row"><span>▒ ░ # @ * ^ | / \ - _ = + ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ # @ * ^ | / \ - _ = + ~ &lt; &gt; { } █ ░ # @ * ^ | / \ - _ = + ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ # @ * ^ |</span></div>
+    <div class="bg-row"><span>= + # @ █ ▓ ▒ ░ | * ^ ~ &lt; &gt; { } [ ] / \ - _ = + # @ █ ▓ ▒ | * ^ ~ &lt; &gt; { } [ ] = + # @ █ ▓ ▒ ░ | * ^ ~ &lt; &gt; { } [ ] / \ - _ = + # @ █ ▓ ▒ |</span></div>
+    <div class="bg-row"><span>\ - _ = █ ▓ + # @ * ^ ~ ░ | / &lt; &gt; { } [ ] \ - _ = █ ▓ + # @ * ^ ~ ░ | / { } [ ] \ - _ = █ ▓ + # @ * ^ ~ ░ | / &lt; &gt; { } [ ] \ - _ = █ ▓ + # @ *</span></div>
+    <div class="bg-row"><span>{ } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▒ ░ | / \ - _ = + # @ * ^ { } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░</span></div>
+    <div class="bg-row"><span>^ ~ &lt; &gt; █ ░ | / \ - _ = + # @ * { } [ ] ▓ ▒ ^ ~ &lt; &gt; █ ░ | / \ - _ = + # @ * { } ^ ~ &lt; &gt; █ ░ | / \ - _ = + # @ * { } [ ] ▓ ▒ ^ ~ &lt; &gt; █ ░ |</span></div>
+    <div class="bg-row"><span>░ | / \ █ ▓ ▒ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ░ | / \ █ ▓ ▒ - _ = + # @ * ^ ~ &lt; ░ | / \ █ ▓ ▒ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ░ | / \ █ ▓ ▒ -</span></div>
+    <div class="bg-row"><span>@ * ^ ~ █ ▓ ▒ ░ { } [ ] | / \ - _ = + # &lt; &gt; @ * ^ ~ █ ▓ ▒ ░ { } | / \ - _ = + @ * ^ ~ █ ▓ ▒ ░ { } [ ] | / \ - _ = + # &lt; &gt; @ * ^ ~ █ ▓ ▒ ░ {</span></div>
+    <div class="bg-row"><span>- _ = + # @ █ ▒ ░ | / \ * ^ ~ &lt; &gt; { } [ ] - _ = + # @ █ ▒ ░ | / \ * ^ ~ &lt; &gt; - _ = + # @ █ ▒ ░ | / \ * ^ ~ &lt; &gt; { } [ ] - _ = + # @ █ ▒ ░ | /</span></div>
+    <div class="bg-row"><span>[ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } █ ▓ ▒ ░ | / \ - _ = + # @ * ^ [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ | / \ - _</span></div>
+    <div class="bg-row"><span>+ # @ * █ ▓ ^ ~ &lt; &gt; { } [ ] ░ | / \ - _ = ▒ + # @ * █ ▓ ^ ~ &lt; &gt; { } [ ] ░ | / + # @ * █ ▓ ^ ~ &lt; &gt; { } [ ] ░ | / \ - _ = ▒ + # @ * █ ▓ ^ ~ &lt;</span></div>
+    <div class="bg-row"><span>▓ ▒ ░ | █ / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ▓ ▒ ░ | █ / \ - _ = + # @ * ^ { } ▓ ▒ ░ | █ / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ▓ ▒ ░ | █ / \ - _</span></div>
+    <div class="bg-row"><span>~ &lt; &gt; { █ ▓ ▒ } [ ] ░ | / \ - _ = + # @ * ^ ~ &lt; { █ ▓ ▒ } [ ] ░ | / \ - _ = ~ &lt; &gt; { █ ▓ ▒ } [ ] ░ | / \ - _ = + # @ * ^ ~ &lt; { █ ▓ ▒ } [ ] ░ |</span></div>
+    <div class="bg-row"><span>= + # @ * █ ^ ~ &lt; &gt; { } [ ] ▓ ▒ ░ | / \ - _ = + # @ * █ ^ ~ &lt; &gt; { } ▓ ▒ = + # @ * █ ^ ~ &lt; &gt; { } [ ] ▓ ▒ ░ | / \ - _ = + # @ * █ ^ ~ &lt; &gt; { }</span></div>
+    <div class="bg-row"><span>/ \ - _ █ ▓ ▒ ░ = + # @ * ^ ~ &lt; &gt; { } [ ] / \ - _ █ ▓ ▒ ░ = + # @ * ^ ~ / \ - _ █ ▓ ▒ ░ = + # @ * ^ ~ &lt; &gt; { } [ ] / \ - _ █ ▓ ▒ ░ = + # @ *</span></div>
+    <div class="bg-row"><span>░ | / \ - █ ▓ _ = + # @ * ^ ~ &lt; &gt; ▒ { } [ ] ░ | / \ - █ ▓ _ = + # @ * ^ ▒ { } ░ | / \ - █ ▓ _ = + # @ * ^ ~ &lt; &gt; ▒ { } [ ] ░ | / \ - █ ▓ _ = +</span></div>
+    <div class="bg-row"><span>{ } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } █ ▒ ░ | / \ - _ = + # @ * ^ { } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ | /</span></div>
+    <div class="bg-row"><span>* ^ ~ &lt; █ ▓ &gt; { } [ ] ░ ▒ | / \ - _ = + # @ * ^ ~ &lt; █ ▓ &gt; { } [ ] ░ ▒ | / * ^ ~ &lt; █ ▓ &gt; { } [ ] ░ ▒ | / \ - _ = + # @ * ^ ~ &lt; █ ▓ &gt; { } [ ] ░</span></div>
+    <div class="bg-row"><span>_ = + # █ @ ▓ ▒ * ^ ~ &lt; &gt; { } [ ] ░ | / \ - _ = + # █ @ ▓ ▒ * ^ ~ &lt; &gt; { _ = + # █ @ ▓ ▒ * ^ ~ &lt; &gt; { } [ ] ░ | / \ - _ = + # █ @ ▓ ▒ * ^ ~ &lt; &gt;</span></div>
+    <div class="bg-row"><span>▒ ░ | █ / ▓ \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ▒ ░ | █ / ▓ \ - _ = + # @ * ^ &lt; &gt; ▒ ░ | █ / ▓ \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ▒ ░ | █ / ▓ \ - _</span></div>
+    <div class="bg-row"><span>| / \ - █ _ ▓ = + # @ * ^ ~ &lt; { } [ ] ▒ ░ | / \ - █ _ ▓ = + # @ * ^ ~ { } | / \ - █ _ ▓ = + # @ * ^ ~ &lt; { } [ ] ▒ ░ | / \ - █ _ ▓ = + # @ * ^</span></div>
+    <div class="bg-row"><span>@ * ^ ~ █ &lt; ▓ &gt; { } ▒ [ ] ░ | / \ - _ = + # @ * ^ ~ █ &lt; ▓ &gt; { } ▒ [ ] ░ | @ * ^ ~ █ &lt; ▓ &gt; { } ▒ [ ] ░ | / \ - _ = + # @ * ^ ~ █ &lt; ▓ &gt; { } ▒ [</span></div>
+    <div class="bg-row"><span>{ } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } █ ▓ ░ | / \ - _ = + # @ * ^ { } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ | / \</span></div>
+  </div>
+
+  <!-- ── Floating style hint pills ── -->
+  <div class="deco-pill deco-pill--1" aria-hidden="true">// █▓▒░ block</div>
+  <div class="deco-pill deco-pill--2" aria-hidden="true">╔═══╗ double</div>
+  <div class="deco-pill deco-pill--3" aria-hidden="true"># banner #</div>
+  <div class="deco-pill deco-pill--4" aria-hidden="true">┌─ digital ─┐</div>
+  <div class="deco-pill deco-pill--5" aria-hidden="true">//// slant</div>
+  <div class="deco-pill deco-pill--6" aria-hidden="true">▓▓▓ shadow</div>
+
+  <!-- ── Top navigation bar ── -->
+  <header class="topbar">
+    <a class="logo" href="#">
+      <div class="logo__icon"><span>A_</span></div>
+      <div class="logo__name">ASCIIForge<sub>app</sub></div>
+    </a>
+    <span class="topbar__version">v1.0.0</span>
+  </header>
+
+  <!-- ── Main page content ── -->
+  <main class="page">
+    <div class="welcome-card">
+
+        <!-- Eyebrow -->
+      <p class="welcome__eyebrow">Welcome to</p>
+
+      <!-- ASCII art wordmark -->
+      <pre class="ascii-wordmark"> █████╗ ███████╗ ██████╗██╗██╗
+██╔══██╗██╔════╝██╔════╝██║██║
+███████║███████╗██║     ██║██║
+██╔══██║╚════██║██║     ██║██║
+██║  ██║███████║╚██████╗██║██║
+╚═╝  ╚═╝╚══════╝ ╚═════╝╚═╝╚═╝</pre>
+
+      <!-- Heading -->
+      <h1 class="welcome__heading">
+        Where text becomes<br><em>art.</em>
+      </h1>
+
+      <!-- Body -->
+      <p class="welcome__body">
+        {{.WelcomeMessage}}
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="btn-stack">
+
+        <!-- Primary: Signup -->
+        <a href={{.SignupRoute}} class="btn btn--signup">
+          <div class="btn__label">
+            <span class="btn__hint">New here?</span>
+            <span class="btn__text">Create an account</span>
+          </div>
+          <div class="btn__arrow">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 7.5h9M8 3.5l4 4-4 4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- Divider -->
+        <div class="divider" aria-hidden="true">
+          <div class="divider__line"></div>
+          <span class="divider__label">or</span>
+          <div class="divider__line"></div>
+        </div>
+
+        <!-- Secondary: Login -->
+        <a href="{{.LoginRoute}}" class="btn btn--login">
+          <div class="btn__label">
+            <span class="btn__hint">Already a lover of art?</span>
+            <span class="btn__text">Sign in</span>
+          </div>
+          <div class="btn__arrow">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 7.5h9M8 3.5l4 4-4 4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </a>
+
+      </div><!-- /.btn-stack -->
+
+      <!-- Card footer note -->
+      <div class="welcome-card__footer">
+        No credit card required &nbsp;·&nbsp; Free to use &nbsp;·&nbsp; Always crafting
+      </div>
+
+    </div><!-- /.welcome-card -->
+  </main>
+
+  <!-- ── Static snackbar demos (CSS-only, always visible) ── -->
+ <!--  <div class="snackbar-container" aria-live="polite">
+    <div class="snackbar snackbar--success">
+      <span class="snackbar__icon">✓</span>
+      <span class="snackbar__text">✦ Welcome to ASCIIForge — your canvas awaits.</span>
+    </div>
+    <div class="snackbar snackbar--warning">
+      <span class="snackbar__icon">⚠</span>
+      <span class="snackbar__text">Session expired. Please sign in again.</span>
+    </div>
+    <div class="snackbar snackbar--error">
+      <span class="snackbar__icon">✕</span>
+      <span class="snackbar__text">Could not connect — check your network.</span>
+    </div>
+  </div>
+ -->
+  <!-- ── Page footer ── -->
+  <footer class="page-footer">
+    © 2026 ASCIIForge &nbsp;·&nbsp; All characters reserved.
+  </footer>
+
+</body>
+</html>

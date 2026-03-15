@@ -56,9 +56,9 @@ func (s *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	http.Redirect(w, r, "/auth/login", http.StatusPermanentRedirect)
+	http.Redirect(w, r, "/auth/login", http.StatusSeeOther)
 }
 
 func (s *Handler) RenderRegisterPageHandler(w http.ResponseWriter, r *http.Request) {
-
+	
 }
