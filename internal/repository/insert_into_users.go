@@ -26,7 +26,7 @@ func (r *ServiceRepo) InsertUser(ctx context.Context, user m.User) *m.Error {
 	if exists {
 		return &m.Error{
 			Error:   h.CONFLICT_ERR,
-			Details: "User Exists Already.",
+			Details: "User exists already.",
 			Code:    h.CONFLICT_ERR_CODE,
 		}
 	}

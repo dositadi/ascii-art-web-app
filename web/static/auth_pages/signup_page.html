@@ -138,6 +138,7 @@
 
       <!-- Card header -->
       <div class="card__header">
+        {{template "p" .}}
         <div class="card__step">Step 01 — create account</div>
         <h1 class="card__heading">Join <em>ASCIIForge.</em></h1>
         <p class="card__sub">Fill in your details below to get started for free.</p>
@@ -272,7 +273,6 @@
         Already have an account?
         <a href={{.LoginPageUrl}}>Sign in instead →</a>
       </div>
-
     </div><!-- /.signup-card -->
 
   </main><!-- /.page -->

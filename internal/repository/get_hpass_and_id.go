@@ -17,9 +17,9 @@ func (s *ServiceRepo) GetHashedPasswordIDAndName(ctx context.Context, email stri
 	if err := row.Scan(&id, &name, &hashed_password); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return "", "", "", &m.Error{
-				Error:   h.NOT_FOUND_ERR,
-				Details: h.NOT_FOUND_DETAIL,
-				Code:    h.NOT_FOUND_CODE,
+				Error:   h.UNAUTHORIZED_ERR,
+				Details: h.UNAUTHORIZED_ERR_DETAIL,
+				Code:    h.UNAUTHORIZED_ERR_CODE,
 			}
 		} else if errors.Is(err, sql.ErrConnDone) {
 			return "", "", "", &m.Error{

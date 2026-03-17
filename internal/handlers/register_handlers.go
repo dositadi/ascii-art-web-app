@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -16,20 +17,21 @@ func (s *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	userPassword := strings.TrimSpace(r.FormValue("password"))
 
 	name := firstName + " " + lastName
+	fmt.Println(userPassword)
 
 	ctx := r.Context()
 
 	err2 := s.Service.RegisterUser(ctx, name, userEmail, userPassword)
 	if err2 != nil {
 		if err2.Error == h.CONFLICT_ERR {
-			err := h.ErrorToJson(*err2)
-			h.ErrorResponse(w, err, http.StatusConflict)
+			at.SignUpPageTemplate(w, &err2.Details)
+			return
 		} else if err2.Error == h.SERVER_ERR {
-			err := h.ErrorToJson(*err2)
-			h.ErrorResponse(w, err, http.StatusInternalServerError)
+			at.SignUpPageTemplate(w, &err2.Details)
+			return
 		} else {
-			err := h.ErrorToJson(*err2)
-			h.ErrorResponse(w, err, http.StatusBadRequest)
+			at.SignUpPageTemplate(w, &err2.Details)
+			return
 		}
 	}
 
@@ -37,7 +39,7 @@ func (s *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Handler) RegisterPageHandler(w http.ResponseWriter, r *http.Request) {
-	err := at.SignUpPageTemplate(w)
+	err := at.SignUpPageTemplate(w, nil)
 	if err != nil {
 		err := h.ErrorToJson(m.Error{Error: err.Error, Details: err.Details, Code: err.Code})
 		h.ErrorResponse(w, err, http.StatusBadRequest)

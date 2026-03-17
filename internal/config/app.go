@@ -2,11 +2,13 @@ package config
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
 
 	h_ "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/internal/handlers"
+	mid "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/internal/middleware"
 	r "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/internal/repository"
 	s "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/internal/services"
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
@@ -37,13 +39,13 @@ func (a *App) InitializeRoutes() {
 
 	// Auth route
 	a.Router.HandleFunc("GET /auth/login", handler.LoginPageHandler)
-	a.Router.HandleFunc("POST /auth/login", handler.LoginPageHandler)
-	
+	a.Router.HandleFunc("POST /auth/login", handler.LoginHandler)
+
 	a.Router.HandleFunc("POST /auth/register", handler.RegisterHandler)
 	a.Router.HandleFunc("GET /auth/register", handler.RegisterPageHandler)
 
 	// Pages route
-	a.Router.HandleFunc("GET /ascii-art/learn-more", handler.LearnMorePageHandler)
+	a.Router.Handle("GET /home", mid.AuthenticateUser(http.HandlerFunc(handler.HomePageHandler)))
 	a.Router.HandleFunc("GET /ascii-art/about-us", handler.AboutPageHandler)
 
 	a.Router.HandleFunc("GET /health", handler.HealthCheckHandler)
@@ -80,13 +82,15 @@ func (a *App) Run() {
 	}
 
 	server := http.Server{
-		Addr:              ":8081",
+		Addr:              ":8082",
 		Handler:           a.Router,
 		WriteTimeout:      10 * time.Second,
 		IdleTimeout:       10 * time.Second,
 		ReadTimeout:       10 * time.Second,
 		ReadHeaderTimeout: 10 * time.Second,
 	}
+
+	fmt.Println("Server is running now!.")
 
 	log.Fatal(server.ListenAndServe())
 }

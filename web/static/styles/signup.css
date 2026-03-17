@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Fira+Code:wght@400;500&display=swap');
 
-/* ─────────────────────────────────────────
-   TOKENS
-───────────────────────────────────────── */
+/* TOKENS */
 :root {
   --blue:           #2563EB;
   --blue-dark:      #1D4ED8;
@@ -21,6 +19,7 @@
   --success:        #16A34A;
   --success-tint:   #F0FDF4;
   --success-border: #BBF7D0;
+  --errortext:      rgb(190, 51, 51);
   --mono:           'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
   --sans:           'DM Sans', system-ui, sans-serif;
   --radius-card:    22px;
@@ -29,9 +28,7 @@
   --radius-logo:    9px;
 }
 
-/* ─────────────────────────────────────────
-   RESET
-───────────────────────────────────────── */
+/* RESET */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
@@ -44,9 +41,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ─────────────────────────────────────────
-   ASCII TILED BACKGROUND
-───────────────────────────────────────── */
+/* ASCII TILED BACKGROUND */
 .bg-canvas {
   position: fixed;
   inset: 0;
@@ -78,9 +73,7 @@ body {
   50%       { opacity: 0.072; }
 }
 
-/* ─────────────────────────────────────────
-   FLOATING DECO PILLS
-───────────────────────────────────────── */
+/* FLOATING DECO PILLS */
 .deco-pill {
   position: fixed;
   font-family: var(--mono);
@@ -113,9 +106,7 @@ body {
   to   { opacity: 0.28; }
 }
 
-/* ─────────────────────────────────────────
-   TOPBAR
-───────────────────────────────────────── */
+/* TOPBAR */
 .topbar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -196,11 +187,9 @@ body {
 .topbar__back svg { transition: transform 0.15s; }
 .topbar__back:hover svg { transform: translateX(-2px); }
 
-/* ─────────────────────────────────────────
-   PAGE LAYOUT
+/* PAGE LAYOUT
    Two-column on wide screens:
-   left = ASCII brand panel, right = form card
-───────────────────────────────────────── */
+   left = ASCII brand panel, right = form card */
 .page {
   position: relative;
   z-index: 2;
@@ -212,9 +201,7 @@ body {
   gap: 48px;
 }
 
-/* ─────────────────────────────────────────
-   LEFT BRAND PANEL (decorative, wide only)
-───────────────────────────────────────── */
+/* LEFT BRAND PANEL (decorative, wide only) */
 .brand-panel {
   display: flex;
   flex-direction: column;
@@ -309,9 +296,7 @@ body {
   color: var(--blue-dark);
 }
 
-/* ─────────────────────────────────────────
-   SIGNUP CARD
-───────────────────────────────────────── */
+/* SIGNUP CARD */
 .signup-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -356,9 +341,7 @@ body {
   white-space: nowrap;
 }
 
-/* ─────────────────────────────────────────
-   CARD HEADER
-───────────────────────────────────────── */
+/* CARD HEADER */
 .card__header {
   margin-bottom: 28px;
   opacity: 0;
@@ -410,9 +393,36 @@ body {
   line-height: 1.6;
 }
 
-/* ─────────────────────────────────────────
-   FORM
-───────────────────────────────────────── */
+.card__error {
+  font-size: 12px;
+  color: var(--errortext);
+  line-height: 1.6;
+  opacity: 0;
+  animation-name: fadeInOut;
+  animation-duration: 6s;
+  animation-iteration-count: forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInOut {
+  /* 0% to 16.6% is the fade in for the text */
+  0% {
+    opacity: 0;
+  }
+  16% {
+    opacity: 1;
+  }
+
+  /* 16.6 to 83.3% is the total hold time for the animation */
+  83.3% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* FORM */
 .signup-form {
   display: flex;
   flex-direction: column;
@@ -421,14 +431,14 @@ body {
   animation: fadeUp 0.4s ease 0.6s forwards;
 }
 
-/* ─── Name row (two cols) ─── */
+/* Name row (two cols) */
 .field-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-/* ─── Field ─── */
+/* Field */
 .field {
   display: flex;
   flex-direction: column;
@@ -457,7 +467,7 @@ body {
   letter-spacing: 0.2px;
 }
 
-/* ─── Input wrapper ─── */
+/*  Input wrapper */
 .input-wrap {
   position: relative;
   display: flex;
@@ -516,7 +526,7 @@ body {
   white-space: nowrap;
 }
 
-/* ─── Password strength bar ─── */
+/* Password strength bar */
 .strength-bar {
   display: flex;
   align-items: center;
@@ -549,7 +559,7 @@ body {
   white-space: nowrap;
 }
 
-/* ─── Terms checkbox ─── */
+/* Terms checkbox */
 .terms-row {
   display: flex;
   align-items: flex-start;
@@ -590,9 +600,7 @@ body {
 
 .terms-row__text a:hover { text-decoration: underline; }
 
-/* ─────────────────────────────────────────
-   SUBMIT BUTTON
-───────────────────────────────────────── */
+/* SUBMIT BUTTON */
 .btn-stack {
   display: flex;
   flex-direction: column;
@@ -638,10 +646,8 @@ body {
 
 .btn-submit:hover .btn-submit__arrow { transform: translateX(4px); }
 
-/* ─────────────────────────────────────────
-   LOADING STATE — CSS-only via :checked
-   Click the loading pill to toggle the spinner
-───────────────────────────────────────── */
+/* LOADING STATE — CSS-only via :checked
+   Click the loading pill to toggle the spinner */
 #loading-trigger { display: none; }
 
 .loading-pill {
@@ -682,9 +688,7 @@ body {
 #loading-trigger:checked ~ .signup-form .btn-submit    { display: none; }
 #loading-trigger:checked ~ .signup-form .loading-pill  { display: flex; }
 
-/* ─────────────────────────────────────────
-   OAUTH DIVIDER + GOOGLE BUTTON
-───────────────────────────────────────── */
+/* OAUTH DIVIDER + GOOGLE BUTTON */
 .divider {
   display: flex;
   align-items: center;
@@ -729,9 +733,7 @@ body {
 
 .btn-oauth:active { transform: translateY(0); }
 
-/* ─────────────────────────────────────────
-   CARD FOOTER
-───────────────────────────────────────── */
+/* CARD FOOTER */
 .card__footer {
   margin-top: 22px;
   padding-top: 18px;
@@ -752,9 +754,7 @@ body {
 
 .card__footer a:hover { color: var(--blue-dark); text-decoration: underline; }
 
-/* ─────────────────────────────────────────
-   PAGE FOOTER
-───────────────────────────────────────── */
+/* PAGE FOOTER */
 .page-footer {
   position: relative;
   z-index: 2;
@@ -766,17 +766,13 @@ body {
   letter-spacing: 0.3px;
 }
 
-/* ─────────────────────────────────────────
-   SHARED KEYFRAMES
-───────────────────────────────────────── */
+/* SHARED KEYFRAMES */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ─────────────────────────────────────────
-   RESPONSIVE
-───────────────────────────────────────── */
+/* RESPONSIVE */
 
 /* Hide brand panel below 960px — card goes full center */
 @media (max-width: 960px) {

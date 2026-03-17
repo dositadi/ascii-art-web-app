@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"fmt"
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
@@ -31,6 +32,8 @@ func (s *Service) RegisterUser(ctx context.Context, name, email, password string
 		return err
 	}
 
+	fmt.Println(hashedPassword)
+
 	var user = m.User{
 		Id:             uuid.NewString(),
 		Name:           name,
@@ -40,7 +43,7 @@ func (s *Service) RegisterUser(ctx context.Context, name, email, password string
 
 	err1 := s.Repository.InsertUser(ctx, user)
 	if err1 != nil {
-		return err
+		return err1
 	}
 	return nil
 }

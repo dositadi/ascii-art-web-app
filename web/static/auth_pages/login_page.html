@@ -70,7 +70,6 @@
 
       <!-- Card header -->
       <div class="card__header">
-
         <!-- ASCII art wordmark -->
         <pre class="ascii-wordmark">██╗      ██████╗  ██████╗ ██╗███╗  ██╗
 ██║     ██╔═══██╗██╔════╝ ██║████╗ ██║
@@ -80,12 +79,13 @@
 ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚══╝</pre>
 
         <h1 class="card__heading">Welcome <em>back.</em></h1>
+        {{template "e" .}}
         <p class="card__sub">Enter your credentials to access your canvas.</p>
 
       </div><!-- /.card__header -->
 
       <!-- Login form -->
-      <form class="login-form" action="#" method="POST" novalidate>
+      <form class="login-form" action={{.PostUrl}} method="POST" validate>
         <!-- Email field -->
         <div class="field">
           <div class="field__label-row">
@@ -126,7 +126,7 @@
               type="password"
               id="password"
               name="password"
-              placeholder="••••••••••"
+              placeholder="••••••••"
               autocomplete="current-password"
               required
             />

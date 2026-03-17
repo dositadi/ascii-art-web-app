@@ -15,6 +15,7 @@
   --border-focus:   #2563EB;
   --surface:        #FFFFFF;
   --text-primary:   #0F172A;
+  --errortext:     rgb(191, 50, 50);
   --text-secondary: #475569;
   --mono:           'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
   --sans:           'DM Sans', system-ui, sans-serif;
@@ -287,6 +288,35 @@ body {
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.6;
+}
+
+.error {
+  font-size: 12px;
+  color: var(--errortext);
+  line-height: 1.6;
+  opacity: 0;
+  animation-name: fadeInOut;
+  animation-duration: 6s;
+  animation-iteration-count: forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInOut {
+  /* at 0% opacity is 0 and at (1/6s*100) 16.6% opacity is 1 */
+  0% {
+    opacity: 0;
+  }
+  16.6% {
+    opacity: 1;
+  }
+
+  /* the time between 16.6% and 83.3% is the hold time for the text */
+  83.3% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 /* FORM FIELDS */

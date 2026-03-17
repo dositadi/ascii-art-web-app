@@ -11,7 +11,7 @@ const (
 	NOT_FOUND_CODE   = "404"
 
 	UNAUTHORIZED_ERR        = "Unauthorized Error."
-	UNAUTHORIZED_ERR_DETAIL = "You are denied access."
+	UNAUTHORIZED_ERR_DETAIL = "Access denied."
 	UNAUTHORIZED_ERR_CODE   = "401"
 
 	CONFLICT_ERR        = "Conflict Error."

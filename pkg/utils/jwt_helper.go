@@ -17,7 +17,7 @@ func GenerateAccessJWT(user m.ActiveUser) (string, *m.Error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, user)
 
-	jwt, err := token.SignedString(secretKey)
+	jwt, err := token.SignedString([]byte(secretKey))
 	if err != nil {
 		return "", &m.Error{
 			Error:   UNAUTHORIZED_ERR,
@@ -37,7 +37,7 @@ func GenerateRefreshJWT(user m.ActiveUser) (string, *m.Error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, user)
 
-	jwt, err := token.SignedString(secretKey)
+	jwt, err := token.SignedString([]byte(secretKey))
 	if err != nil {
 		return "", &m.Error{
 			Error:   UNAUTHORIZED_ERR,
