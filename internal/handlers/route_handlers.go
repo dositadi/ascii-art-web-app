@@ -37,10 +37,6 @@ func CreateNewService(service AsciiServices) *Handler {
 	}
 }
 
-func (s *Handler) HomePageHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Home connection set!"))
-}
-
 func (s *Handler) AboutPageHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("About connection set!"))
 }

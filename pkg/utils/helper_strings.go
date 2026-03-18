@@ -53,6 +53,7 @@ const (
 	LOGIN_ROUTE   = "/auth/login"
 	SIGNUP_ROUTE  = "/auth/register"
 	WELCOME_ROUTE = "/"
+	ASCII_ROUTE = "/home/ascii"
 )
 
 // Internal folder path

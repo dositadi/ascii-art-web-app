@@ -44,7 +44,7 @@ func (s *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.SetCookie(w, &http.Cookie{Name: "refresh-jwt", Value: refreshToken, HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode})
-	http.SetCookie(w, &http.Cookie{Name: "access-token", Value: accessToken, HttpOnly: true, SameSite: http.SameSiteLaxMode, Path: "/"})
+	http.SetCookie(w, &http.Cookie{Name: "refresh_jwt", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode, Path: "/auth/refresh"})
+	http.SetCookie(w, &http.Cookie{Name: "access_token", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode, Path: "/"})
 	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
