@@ -1,13 +1,9 @@
 package handlers
 
-import (
-	"net/http"
-
-	it "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/web/templates/inner_templates"
-)
+import "net/http"
 
 func (s *Handler) HomePageHandler(w http.ResponseWriter, r *http.Request) {
-	err := it.HomePageTemplate(w)
+	err := s.Service.RenderHomePage(w, r)
 	if err != nil {
 		http.Error(w, err.Details, http.StatusInternalServerError)
 		return

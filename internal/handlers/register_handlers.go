@@ -7,7 +7,6 @@ import (
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
-	at "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/web/templates/auth_templates"
 )
 
 func (s *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
@@ -24,13 +23,13 @@ func (s *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	err2 := s.Service.RegisterUser(ctx, name, userEmail, userPassword)
 	if err2 != nil {
 		if err2.Error == h.CONFLICT_ERR {
-			at.SignUpPageTemplate(w, &err2.Details)
+			s.Service.RenderSignupPage(w, r, &err2.Details)
 			return
 		} else if err2.Error == h.SERVER_ERR {
-			at.SignUpPageTemplate(w, &err2.Details)
+			s.Service.RenderSignupPage(w, r, &err2.Details) // Change this to the error page
 			return
 		} else {
-			at.SignUpPageTemplate(w, &err2.Details)
+			s.Service.RenderSignupPage(w, r, &err2.Details) // change this to the error page
 			return
 		}
 	}
@@ -39,7 +38,7 @@ func (s *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Handler) RegisterPageHandler(w http.ResponseWriter, r *http.Request) {
-	err := at.SignUpPageTemplate(w, nil)
+	err := s.Service.RenderSignupPage(w, r, nil)
 	if err != nil {
 		err := h.ErrorToJson(m.Error{Error: err.Error, Details: err.Details, Code: err.Code})
 		h.ErrorResponse(w, err, http.StatusBadRequest)

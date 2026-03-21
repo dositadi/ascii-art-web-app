@@ -1,0 +1,165 @@
+{{define "login"}}
+<!-- ── ASCII tiled background ── -->
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="bg-row"><span>█ ▓ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } █ ▓ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ | / \ -</span></div>
+    <div class="bg-row"><span>▒ ░ # @ * ^ | / \ - _ = + ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ # @ * ^ | / \ - _ = + ~ &lt; &gt; { } █ ░ # @ * ^ | / \ - _ = + ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ # @ * ^ |</span></div>
+    <div class="bg-row"><span>= + # @ █ ▓ ▒ ░ | * ^ ~ &lt; &gt; { } [ ] / \ - _ = + # @ █ ▓ ▒ | * ^ ~ &lt; &gt; { } [ ] = + # @ █ ▓ ▒ ░ | * ^ ~ &lt; &gt; { } [ ] / \ - _ = + # @ █ ▓ ▒ |</span></div>
+    <div class="bg-row"><span>\ - _ = █ ▓ + # @ * ^ ~ ░ | / &lt; &gt; { } [ ] \ - _ = █ ▓ + # @ * ^ ~ ░ | / { } [ ] \ - _ = █ ▓ + # @ * ^ ~ ░ | / &lt; &gt; { } [ ] \ - _ = █ ▓ + # @ *</span></div>
+    <div class="bg-row"><span>{ } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▒ ░ | / \ - _ = + # @ * ^ { } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░</span></div>
+    <div class="bg-row"><span>^ ~ &lt; &gt; █ ░ | / \ - _ = + # @ * { } [ ] ▓ ▒ ^ ~ &lt; &gt; █ ░ | / \ - _ = + # @ * { } ^ ~ &lt; &gt; █ ░ | / \ - _ = + # @ * { } [ ] ▓ ▒ ^ ~ &lt; &gt; █ ░ |</span></div>
+    <div class="bg-row"><span>░ | / \ █ ▓ ▒ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ░ | / \ █ ▓ ▒ - _ = + # @ * ^ ~ &lt; ░ | / \ █ ▓ ▒ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ░ | / \ █ ▓ ▒ -</span></div>
+    <div class="bg-row"><span>@ * ^ ~ █ ▓ ▒ ░ { } [ ] | / \ - _ = + # &lt; &gt; @ * ^ ~ █ ▓ ▒ ░ { } | / \ - _ = + @ * ^ ~ █ ▓ ▒ ░ { } [ ] | / \ - _ = + # &lt; &gt; @ * ^ ~ █ ▓ ▒ ░ {</span></div>
+    <div class="bg-row"><span>- _ = + # @ █ ▒ ░ | / \ * ^ ~ &lt; &gt; { } [ ] - _ = + # @ █ ▒ ░ | / \ * ^ ~ &lt; &gt; - _ = + # @ █ ▒ ░ | / \ * ^ ~ &lt; &gt; { } [ ] - _ = + # @ █ ▒ ░ | /</span></div>
+    <div class="bg-row"><span>[ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } █ ▓ ▒ ░ | / \ - _ = + # @ * ^ [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ | / \ - _</span></div>
+    <div class="bg-row"><span>+ # @ * █ ▓ ^ ~ &lt; &gt; { } [ ] ░ | / \ - _ = ▒ + # @ * █ ▓ ^ ~ &lt; &gt; { } [ ] ░ | / + # @ * █ ▓ ^ ~ &lt; &gt; { } [ ] ░ | / \ - _ = ▒ + # @ * █ ▓ ^ ~ &lt;</span></div>
+    <div class="bg-row"><span>▓ ▒ ░ | █ / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ▓ ▒ ░ | █ / \ - _ = + # @ * ^ { } ▓ ▒ ░ | █ / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ▓ ▒ ░ | █ / \ - _</span></div>
+    <div class="bg-row"><span>~ &lt; &gt; { █ ▓ ▒ } [ ] ░ | / \ - _ = + # @ * ^ ~ &lt; { █ ▓ ▒ } [ ] ░ | / \ - _ = ~ &lt; &gt; { █ ▓ ▒ } [ ] ░ | / \ - _ = + # @ * ^ ~ &lt; { █ ▓ ▒ } [ ] ░ |</span></div>
+    <div class="bg-row"><span>= + # @ * █ ^ ~ &lt; &gt; { } [ ] ▓ ▒ ░ | / \ - _ = + # @ * █ ^ ~ &lt; &gt; { } ▓ ▒ = + # @ * █ ^ ~ &lt; &gt; { } [ ] ▓ ▒ ░ | / \ - _ = + # @ * █ ^ ~ &lt; &gt; { }</span></div>
+    <div class="bg-row"><span>/ \ - _ █ ▓ ▒ ░ = + # @ * ^ ~ &lt; &gt; { } [ ] / \ - _ █ ▓ ▒ ░ = + # @ * ^ ~ / \ - _ █ ▓ ▒ ░ = + # @ * ^ ~ &lt; &gt; { } [ ] / \ - _ █ ▓ ▒ ░ = + # @ *</span></div>
+    <div class="bg-row"><span>░ | / \ - █ ▓ _ = + # @ * ^ ~ &lt; &gt; ▒ { } [ ] ░ | / \ - █ ▓ _ = + # @ * ^ ▒ { } ░ | / \ - █ ▓ _ = + # @ * ^ ~ &lt; &gt; ▒ { } [ ] ░ | / \ - █ ▓ _ = +</span></div>
+    <div class="bg-row"><span>{ } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } █ ▒ ░ | / \ - _ = + # @ * ^ { } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ | /</span></div>
+    <div class="bg-row"><span>* ^ ~ &lt; █ ▓ &gt; { } [ ] ░ ▒ | / \ - _ = + # @ * ^ ~ &lt; █ ▓ &gt; { } [ ] ░ ▒ | / * ^ ~ &lt; █ ▓ &gt; { } [ ] ░ ▒ | / \ - _ = + # @ * ^ ~ &lt; █ ▓ &gt; { } [ ] ░</span></div>
+    <div class="bg-row"><span>_ = + # █ @ ▓ ▒ * ^ ~ &lt; &gt; { } [ ] ░ | / \ - _ = + # █ @ ▓ ▒ * ^ ~ &lt; &gt; { _ = + # █ @ ▓ ▒ * ^ ~ &lt; &gt; { } [ ] ░ | / \ - _ = + # █ @ ▓ ▒ * ^ ~ &lt; &gt;</span></div>
+    <div class="bg-row"><span>▒ ░ | █ / ▓ \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ▒ ░ | █ / ▓ \ - _ = + # @ * ^ &lt; &gt; ▒ ░ | █ / ▓ \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] ▒ ░ | █ / ▓ \ - _</span></div>
+    <div class="bg-row"><span>| / \ - █ _ ▓ = + # @ * ^ ~ &lt; { } [ ] ▒ ░ | / \ - █ _ ▓ = + # @ * ^ ~ { } | / \ - █ _ ▓ = + # @ * ^ ~ &lt; { } [ ] ▒ ░ | / \ - █ _ ▓ = + # @ * ^</span></div>
+    <div class="bg-row"><span>@ * ^ ~ █ &lt; ▓ &gt; { } ▒ [ ] ░ | / \ - _ = + # @ * ^ ~ █ &lt; ▓ &gt; { } ▒ [ ] ░ | @ * ^ ~ █ &lt; ▓ &gt; { } ▒ [ ] ░ | / \ - _ = + # @ * ^ ~ █ &lt; ▓ &gt; { } ▒ [</span></div>
+    <div class="bg-row"><span>{ } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } █ ▓ ░ | / \ - _ = + # @ * ^ { } [ ] █ ▓ ▒ ░ | / \ - _ = + # @ * ^ ~ &lt; &gt; { } [ ] █ ▓ ▒ ░ | / \</span></div>
+  </div>
+
+  <!-- ── Floating style hint pills ── -->
+  <div class="deco-pill deco-pill--1" aria-hidden="true">// auth_check</div>
+  <div class="deco-pill deco-pill--2" aria-hidden="true">╔═ secure ═╗</div>
+  <div class="deco-pill deco-pill--3" aria-hidden="true"># session #</div>
+  <div class="deco-pill deco-pill--4" aria-hidden="true">┌─ login ─┐</div>
+  <div class="deco-pill deco-pill--5" aria-hidden="true">// verified</div>
+  <div class="deco-pill deco-pill--6" aria-hidden="true">▓▓▓ access</div>
+
+  <!-- ── Top navigation bar ── -->
+  <header class="topbar">
+    <a class="logo" hx-get={{.PostUrl}}>
+      <div class="logo__icon"><span>A_</span></div>
+      <div class="logo__name">ASCIIForge<sub>app</sub></div>
+    </a>
+    <a class="topbar__back" hx-get={{.BackURL}} hx-target="#body" hx-swap="innerHTML" hx-push-url="true">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 7H3M6 3L2 7l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </a>
+  </header>
+
+  <!-- ── Loading state trigger (CSS-only checkbox hack) ── -->
+  <!--
+    Checking this hidden checkbox simulates a backend
+    verification loading state — no JavaScript needed.
+    In production, replace with real form submission logic.
+  -->
+  <input type="checkbox" id="loading-trigger" />
+
+  <!-- ── Main page content ── -->
+  <main class="page">
+    <div class="login-card">
+
+      <!-- Card header -->
+      <div class="card__header">
+        <!-- ASCII art wordmark -->
+        <pre class="ascii-wordmark">██╗      ██████╗  ██████╗ ██╗███╗  ██╗
+██║     ██╔═══██╗██╔════╝ ██║████╗ ██║
+██║     ██║   ██║██║  ██╗ ██║██╔██╗██║
+██║     ██║   ██║██║  ╚██╗██║██║╚████║
+███████╗╚██████╔╝╚██████╔╝██║██║ ╚███║
+╚══════╝ ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚══╝</pre>
+
+        <h1 class="card__heading">Welcome <em>back.</em></h1>
+        {{template "error" .}}
+        <p class="card__sub">Enter your credentials to access your canvas.</p>
+
+      </div><!-- /.card__header -->
+
+      <!-- Login form -->
+      <form class="login-form" hx-post={{.PostUrl}} hx-target="#body" hx-swap="innerHTML" hx-push-url="true" validate>
+        <!-- Email field -->
+        <div class="field">
+          <div class="field__label-row">
+            <span class="field__label-text">Email</span>
+          </div>
+          <div class="input-wrap">
+            <span class="input-wrap__icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1.5" y="3.5" width="13" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M1.5 5.5l6.5 4 6.5-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Password field -->
+        <div class="field">
+          <div class="field__label-row">
+            <span class="field__label-text">Password</span>
+            <a class="field__link" href="#">Forgot password?</a>
+          </div>
+          <div class="input-wrap input-wrap--password">
+            <span class="input-wrap__icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="7" width="10" height="7.5" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+            />
+            <span class="input-wrap__badge">••• hide</span>
+          </div>
+        </div>
+
+        <!-- Remember me + forgot -->
+        <div class="check-row">
+          <label class="check-label" for="remember">
+            <input type="checkbox" id="remember" name="remember" />
+            Remember me for 30 days
+          </label>
+        </div>
+
+        <!-- Submit + loading state -->
+        <div class="btn-stack">
+
+          <!-- Normal submit button -->
+          <button type="submit" class="btn-submit">
+            <span class="btn-submit__text">Sign in to ASCIIForge</span>
+            <span class="btn-submit__arrow">
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 7.5h9M8 3.5l4 4-4 4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+        </div><!-- /.btn-stack -->
+      </form><!-- /.login-form -->
+
+      <!-- Card footer -->
+      <div class="card__footer">
+        Don't have an account?
+        <a hx-get={{.SignUpURL}} hx-target="#body" hx-swap="innerHTML" hx-push-url="true">Create one for free →</a>
+      </div>
+
+    </div><!-- /.login-card -->
+  </main>
+
+  <!-- ── Page footer ── -->
+  <footer class="page-footer">
+    © 2026 ASCIIForge &nbsp;·&nbsp; All characters reserved.
+  </footer>
+{{end}}

@@ -23,6 +23,13 @@ type AsciiServices interface {
 	LoginUser(ctx context.Context, email, password string) (m.ActiveUser, *m.Error)
 	CheckDBHealth() *m.Error
 
+	// Render Page functions
+	RenderAsciiArtPage(w http.ResponseWriter, r *http.Request) *m.Error
+	RenderWelcomePage(w http.ResponseWriter, r *http.Request) *m.Error
+	RenderLoginPage(w http.ResponseWriter, r *http.Request, message *string) *m.Error
+	RenderSignupPage(w http.ResponseWriter, r *http.Request, message *string) *m.Error
+	RenderHomePage(w http.ResponseWriter, r *http.Request) *m.Error
+
 	// App Service
 	TransformText(request m.Ascii) (string, *m.Error)
 }

@@ -1,15 +1,15 @@
-package innertemplates
+package services
 
 import (
-	"html/template"
 	"net/http"
+	"text/template"
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
 )
 
-func ASCIITemplate(w http.ResponseWriter, output string) *m.Error {
-	temp, err := template.New("ascii.html").ParseFiles("web/static/internal_pages/ascii.html")
+func (s *Service) RenderAsciiArtPage(w http.ResponseWriter, r *http.Request) *m.Error {
+	temp, err := template.New("ascii.html").ParseFiles("web/static/internal_pages/ascii.html", "web/templates/ascii_partial.html")
 	if err != nil {
 		return &m.Error{
 			Error:   h.PAGE_PARSING_ERROR,
@@ -42,16 +42,21 @@ func ASCIITemplate(w http.ResponseWriter, output string) *m.Error {
 		Output:           "",
 	}
 
-	if output != "" {
-		asciiPageDetails.RecievedOutput = true
-		asciiPageDetails.Output = output
-	}
-
-	if err1 := temp.Execute(w, asciiPageDetails); err1 != nil {
-		return &m.Error{
-			Error:   h.PAGE_PARSING_ERROR,
-			Details: err.Error(),
-			Code:    h.PAGE_PARSING_CODE,
+	if s.GetHxRequestStatus(r) {
+		if err1 := temp.ExecuteTemplate(w, "ascii", asciiPageDetails); err1 != nil {
+			return &m.Error{
+				Error:   h.PAGE_PARSING_ERROR,
+				Details: err1.Error(),
+				Code:    h.PAGE_PARSING_CODE,
+			}
+		}
+	} else {
+		if err2 := temp.Execute(w, asciiPageDetails); err2 != nil {
+			return &m.Error{
+				Error:   h.PAGE_PARSING_ERROR,
+				Details: err2.Error(),
+				Code:    h.PAGE_PARSING_CODE,
+			}
 		}
 	}
 	return nil

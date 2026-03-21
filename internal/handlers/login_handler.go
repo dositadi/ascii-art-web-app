@@ -5,11 +5,10 @@ import (
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
-	at "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/web/templates/auth_templates"
 )
 
 func (s *Handler) LoginPageHandler(w http.ResponseWriter, r *http.Request) {
-	err := at.LoginPageTemplate(w, nil)
+	err := s.Service.RenderLoginPage(w, r, nil)
 	if err != nil {
 		err := h.ErrorToJson(m.Error{Error: err.Error, Details: err.Details, Code: err.Code})
 		h.ErrorResponse(w, err, http.StatusBadRequest)
@@ -25,7 +24,7 @@ func (s *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	activeUser, err := s.Service.LoginUser(ctx, email, password)
 	if err != nil {
 		if err.Error == h.UNAUTHORIZED_ERR {
-			at.LoginPageTemplate(w, &err.Details)
+			s.Service.RenderLoginPage(w, r, &err.Details)
 			return
 		} else {
 			// Display in the page for errors
@@ -34,13 +33,13 @@ func (s *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	refreshToken, err2 := h.GenerateRefreshJWT(activeUser)
 	if err2 != nil {
-		at.LoginPageTemplate(w, &err2.Details)
+		s.Service.RenderLoginPage(w, r, &err.Details)
 		return
 	}
 
 	accessToken, err3 := h.GenerateAccessJWT(activeUser)
 	if err3 != nil {
-		at.LoginPageTemplate(w, &err3.Details)
+		s.Service.RenderLoginPage(w, r, &err.Details)
 		return
 	}
 

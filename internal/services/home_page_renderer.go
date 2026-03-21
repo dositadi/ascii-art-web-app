@@ -1,15 +1,15 @@
-package innertemplates
+package services
 
 import (
-	"html/template"
 	"net/http"
+	"text/template"
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
 )
 
-func HomePageTemplate(w http.ResponseWriter) *m.Error {
-	temp, err := template.New("home.html").ParseFiles("web/static/internal_pages/home.html")
+func (s *Service) RenderHomePage(w http.ResponseWriter, r *http.Request) *m.Error {
+	temp, err := template.New("home.html").ParseFiles("web/static/internal_pages/home.html", "web/templates/home_partial.html")
 	if err != nil {
 		return &m.Error{
 			Error:   h.PAGE_PARSING_ERROR,
@@ -62,11 +62,21 @@ func HomePageTemplate(w http.ResponseWriter) *m.Error {
               he's writing about web performance and open-source tooling.`,
 	}
 
-	if err2 := temp.Execute(w, homePageDetails); err2 != nil {
-		return &m.Error{
-			Error:   h.PAGE_PARSING_ERROR,
-			Details: err2.Error(),
-			Code:    h.PAGE_PARSING_CODE,
+	if s.GetHxRequestStatus(r) {
+		if err2 := temp.ExecuteTemplate(w, "home", homePageDetails); err2 != nil {
+			return &m.Error{
+				Error:   h.PAGE_PARSING_ERROR,
+				Details: err2.Error(),
+				Code:    h.PAGE_PARSING_CODE,
+			}
+		}
+	} else {
+		if err3 := temp.Execute(w, homePageDetails); err3 != nil {
+			return &m.Error{
+				Error:   h.PAGE_PARSING_ERROR,
+				Details: err3.Error(),
+				Code:    h.PAGE_PARSING_CODE,
+			}
 		}
 	}
 	return nil
