@@ -48,14 +48,6 @@
     </a>
   </header>
 
-  <!-- ── Loading checkbox (CSS-only spinner trigger) ── -->
-  <!--
-    Checking this hidden checkbox swaps the submit button
-    for the spinning "registering…" indicator — no JS needed.
-    In production, replace with real form submission handling.
-  -->
-  <input type="checkbox" id="loading-trigger" />
-
   <!-- ── Main two-column layout ── -->
   <main class="page">
 
@@ -121,7 +113,6 @@
         Already have an account?
         <a hx-get={{.LoginPageUrl}} hx-swap="innerHTML" hx-target="#body" hx-push-url="true">Sign in →</a>
       </p>
-
     </aside>
 
     <!-- RIGHT: Signup card -->

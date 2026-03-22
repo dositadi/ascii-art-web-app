@@ -195,7 +195,7 @@ body {
   z-index: 2;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: 100px 24px 60px;

@@ -21,6 +21,9 @@ const (
 	CONN_LOST_ERR        = "Connection lost."
 	CONN_LOST_ERR_DETAIL = "Connection has been lost."
 	CONN_LOST_ERR_CODE   = "500"
+
+	PROCESS_TEXT_ERR        = "Process text error."
+	PROCESS_TEXT_ERR_DETAIL = "Unable to process text."
 )
 
 // User registration errors
@@ -55,6 +58,7 @@ const (
 	WELCOME_ROUTE = "/"
 	HOME_ROUTE    = "/home"
 	ASCII_ROUTE   = "/home/ascii-art"
+	// TRANSFORM_TEXT_ROUTE = "/home/ascii-art/transform-text"
 )
 
 // Internal folder path

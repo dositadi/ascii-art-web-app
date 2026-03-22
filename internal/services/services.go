@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	at "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/internal/tranformer"
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 )
 
@@ -16,13 +17,22 @@ type Repo interface {
 	PingDB() *m.Error
 }
 
+type Transformer interface {
+	SplitInputByNewline(input string) ([]string, *m.Error)
+	ReadAsciiFromFont(rn rune, banner string) ([]string, *m.Error)
+	ReadWords(input []string, banner string) ([][][]string, *m.Error)
+	FormatAsciiWords(asciiWords [][][]string) string
+}
+
 type Service struct {
-	Repository Repo
+	Repository       Repo
+	AsciiTransformer Transformer
 }
 
 func ConstructNewService(repo Repo) *Service {
 	return &Service{
-		Repository: repo,
+		Repository:       repo,
+		AsciiTransformer: at.CreateNewAsciiTransformer(),
 	}
 }
 

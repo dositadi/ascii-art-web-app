@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
+	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
 )
 
 type AsciiServices interface {
@@ -31,7 +32,7 @@ type AsciiServices interface {
 	RenderHomePage(w http.ResponseWriter, r *http.Request) *m.Error
 
 	// App Service
-	TransformText(request m.Ascii) (string, *m.Error)
+	TransformText(w http.ResponseWriter, r *http.Request, text, banner string) *m.Error
 }
 
 type Handler struct {
@@ -46,6 +47,16 @@ func CreateNewService(service AsciiServices) *Handler {
 
 func (s *Handler) LearnMorePageHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Learn More connection set!"))
+}
+
+func (s *Handler) TransformTextHandler(w http.ResponseWriter, r *http.Request) {
+	text := r.FormValue(h.TEXT_KEY)
+	banner := r.FormValue(h.BANNER_KEY)
+
+	err := s.Service.TransformText(w, r, text, banner)
+	if err != nil {
+
+	}
 }
 
 func (s *Handler) ServerErrorPageHandler(w http.ResponseWriter, r *http.Request) {
