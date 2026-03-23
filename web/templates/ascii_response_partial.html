@@ -1,0 +1,32 @@
+{{define "ascii-response"}}
+<div id="response" class="tc-output">
+    <pre class="tc-output">{{.FormattedAsciiWords}}</pre>
+</div>
+
+<span id="toolbar-font" class="toolbar-meta" hx-swap-oob="true">{{.ToolbarFont}}</span>
+<span id="toolbar-chars" class="toolbar-meta" hx-swap-oob="true">{{.ToolbarChars}}</span>
+<span id="toolbar-lines" class="toolbar-meta" hx-swap-oob="true">{{.ToolbarLines}}</span>
+
+<span id="t-cli-input" class="p-cmd" hx-swap-oob="true">{{.UiCliInput}}</span>
+
+<span id="t-header" class="t-dim" hx-swap-oob="true">──────────────────────────────────────────────────────────────────
+{{.AsciiForgeHeader}}
+──────────────────────────────────────────────────────────────────</span>
+
+<span id="t-response-time" class="t-green" hx-swap-oob="true">{{.ResponseTime}}</span>
+
+<span id="t-output-meta" class="t-dim" hx-swap-oob="true">{{.AsciiForgeFooter}}</span></pre>
+{{end}}
+
+{{define "clear"}}
+<div id="response" class="tc-empty">
+    <div class="tc-empty__icon">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+        <path d="M5 5h16M5 10h10M5 15h13M5 20h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    </div>
+    <div class="tc-empty__heading">awaiting input</div>
+    <p class="tc-empty__sub">Enter your text in the bar above, choose a font style, and press Generate to render your banner here.</p>
+    <div class="tc-empty__hint">$ forge --text "your text" --style block</div>
+</div>
+{{end}}

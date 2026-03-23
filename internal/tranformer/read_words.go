@@ -1,29 +1,43 @@
 package tranformer
 
 import (
-	"slices"
 	"strings"
+
+	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
+	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
 )
 
-func (at AsciiTransform) FormatAsciiWords(asciiWords [][][]string) string {
-	var ascii strings.Builder
+func (at *AsciiTransform) ReadWords(input []string, banner string) ([][][]string, string, *m.Error) {
+	var output [][][]string
+	var cliEquivalent strings.Builder
 
-	for i := 0; i < len(asciiWords); i++ {
-		current := asciiWords[i]
-		if slices.Compare(current[0], []string{""}) == 0 {
-			ascii.WriteString("\n")
+	for i := 0; i < len(input); i++ {
+		current := input[i]
+		var wordsAsciiChar [][]string
+		if strings.Compare(current, "") == 0 {
+			cliEquivalent.WriteString("\\n")
+			wordsAsciiChar = append(wordsAsciiChar, []string{""})
+			output = append(output, wordsAsciiChar)
 			continue
-		}
-		for j := 0; j < 8; j++ {
-			for k := 0; k < len(current); k++ {
-				if k != len(current)-1 {
-					ascii.WriteString(current[k][j])
-				} else {
-					ascii.WriteString(current[k][j] + "\n")
-				}
+		} else {
+			if i != len(input)-1 {
+				cliEquivalent.WriteString(current + "\\n")
+			} else {
+				cliEquivalent.WriteString(current)
 			}
 		}
-		ascii.WriteString("\n")
+		for _, rn := range current {
+			asciiChar, err := at.ReadAsciiFromFont(rn, banner)
+			if err != nil {
+				return nil, "", &m.Error{
+					Error:   h.PROCESS_TEXT_ERR,
+					Details: h.PROCESS_TEXT_ERR_DETAIL,
+					Code:    h.SERVER_ERR_CODE,
+				}
+			}
+			wordsAsciiChar = append(wordsAsciiChar, asciiChar)
+		}
+		output = append(output, wordsAsciiChar)
 	}
-	return ascii.String()
+	return output, cliEquivalent.String(), nil
 }

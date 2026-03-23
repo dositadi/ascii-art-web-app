@@ -44,4 +44,6 @@ func (s *Handler) RegisterPageHandler(w http.ResponseWriter, r *http.Request) {
 		h.ErrorResponse(w, err, http.StatusBadRequest)
 		return
 	}
+	w.Header().Set("Content-Type", "text/html")
+	w.WriteHeader(http.StatusOK)
 }

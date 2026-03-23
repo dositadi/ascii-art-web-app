@@ -3,22 +3,12 @@ package handlers
 import (
 	"context"
 	"net/http"
+	"time"
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
-	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
 )
 
 type AsciiServices interface {
-	/* // App pages
-	GetAboutUs() ([]m.AboutUs, *m.Error)
-	RenderHomePage(w http.ResponseWriter) *m.Error
-	RenderLearnMorePage(w http.ResponseWriter) *m.Error
-
-	// Auth pages
-	RenderLoginPage(w http.ResponseWriter) *m.Error
-	RenderSignupPage(w http.ResponseWriter) *m.Error
-	*/
-
 	// Auth Handlers
 	RegisterUser(ctx context.Context, name, email, password string) *m.Error
 	LoginUser(ctx context.Context, email, password string) (m.ActiveUser, *m.Error)
@@ -31,8 +21,11 @@ type AsciiServices interface {
 	RenderSignupPage(w http.ResponseWriter, r *http.Request, message *string) *m.Error
 	RenderHomePage(w http.ResponseWriter, r *http.Request) *m.Error
 
+	// Render HTML partials function
+	//RenderAsciiPlaceholder(w http.ResponseWriter, r *http.Request) *m.Error
+
 	// App Service
-	TransformText(w http.ResponseWriter, r *http.Request, text, banner string) *m.Error
+	TransformText(w http.ResponseWriter, r *http.Request, text, banner string, start time.Time) *m.Error
 }
 
 type Handler struct {
@@ -47,16 +40,6 @@ func CreateNewService(service AsciiServices) *Handler {
 
 func (s *Handler) LearnMorePageHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Learn More connection set!"))
-}
-
-func (s *Handler) TransformTextHandler(w http.ResponseWriter, r *http.Request) {
-	text := r.FormValue(h.TEXT_KEY)
-	banner := r.FormValue(h.BANNER_KEY)
-
-	err := s.Service.TransformText(w, r, text, banner)
-	if err != nil {
-
-	}
 }
 
 func (s *Handler) ServerErrorPageHandler(w http.ResponseWriter, r *http.Request) {

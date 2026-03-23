@@ -20,9 +20,9 @@ type Repo interface {
 type Transformer interface {
 	SplitInputByNewline(input string) ([]string, *m.Error)
 	ReadAsciiFromFont(rn rune, banner string) ([]string, *m.Error)
-	ReadWords(input []string, banner string) ([][][]string, *m.Error)
+	ReadWords(input []string, banner string) ([][][]string, string, *m.Error)
 	FormatAsciiWords(asciiWords [][][]string) string
-	RenderAsciiArtOutput(w http.ResponseWriter, r *http.Request) *m.Error
+	RenderAsciiArtOutput(w http.ResponseWriter, r *http.Request, formattedAsciiWords, uiCliInput, asciiForgeHeader, responseTime, toolbarFont, toolbarChars, toolbarLines, asciiForgeFooter string) *m.Error
 }
 
 type Service struct {

@@ -14,6 +14,8 @@ func (s *Handler) LoginPageHandler(w http.ResponseWriter, r *http.Request) {
 		h.ErrorResponse(w, err, http.StatusBadRequest)
 		return
 	}
+	w.Header().Set("Content-Type", "text/html")
+	w.WriteHeader(http.StatusOK)
 }
 
 func (s *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {

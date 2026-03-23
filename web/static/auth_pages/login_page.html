@@ -4,7 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ASCIIForge — Sign In</title>
-  <link rel="stylesheet" href="/web/static/styles/login.css" />
+  <link rel="stylesheet" href="/web/static/styles/welcome.css">
+  <link rel="stylesheet" href="/web/static/styles/signup.css">
+  <link rel="stylesheet" href="/web/static/styles/login.css">
+  <link rel="stylesheet" href="/web/static/styles/home.css">
+  <link rel="stylesheet" href="/web/static/styles/ascii.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
+          crossorigin="anonymous"></script>
 </head>
 <body id="body" hx-boost="true">
   {{template "login" .}}

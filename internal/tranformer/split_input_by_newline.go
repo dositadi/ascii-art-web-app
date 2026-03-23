@@ -2,7 +2,6 @@ package tranformer
 
 import (
 	"bufio"
-	"fmt"
 	"strings"
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
@@ -27,6 +26,5 @@ func (at *AsciiTransform) SplitInputByNewline(input string) ([]string, *m.Error)
 			Code:    h.SERVER_ERR_CODE,
 		}
 	}
-	fmt.Println(output)
 	return output, nil
 }

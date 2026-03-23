@@ -105,7 +105,7 @@
         The server renders the output back into .tc-output pre.
         No JavaScript is required — standard HTML form POST.
       -->
-      <form class="tc-form" hx-post={{.PostRoute}} hx-target="#body" hx-swap="innerHTML" hx-push-url="true" novalidate>
+      <form class="tc-form" hx-post={{.PostRoute}} hx-target="#response" hx-swap="outerHTML" hx-push-url="true" novalidate>
 
         <!-- Text input -->
         <div class="tc-text-wrap">
@@ -278,9 +278,9 @@
 
       <!-- Right-aligned metadata Update from server-->
       <div class="toolbar-info">
-        <span class="toolbar-meta">style: block</span>
-        <span class="toolbar-meta">chars: 11</span>
-        <span class="toolbar-meta">lines: 6</span>
+        <span id="toolbar-font" class="toolbar-meta">font: none</span>
+        <span id="toolbar-chars" class="toolbar-meta">chars: none</span>
+        <span id="toolbar-lines" class="toolbar-meta">lines: none</span>
       </div>
 
     </div><!-- /.tc-toolbar -->
@@ -292,14 +292,14 @@
       <!-- Prompt line -->
       <div class="tc-prompt">
         <span class="p-user">ascii</span><span class="p-at">@</span><span class="p-host">forge</span><span class="p-colon">:</span><span class="p-dir">~/generate</span><span class="p-dollar">$</span>
-        <span class="p-cmd">forge --text "Hello World" --style block --size medium</span>
+        <span id="t-cli-input" class="p-cmd">forge --text "Hello World" --font standard --size small</span>
         <span class="p-cursor"></span>
       </div>
 
       <!-- Output block — server populates this with the rendered ASCII -->
       <div class="tc-output">
-<pre><span class="t-dim">──────────────────────────────────────────────────────────────────
-ASCIIForge v1.0.0  ·  style: block  ·  size: medium  ·  border: none
+<pre><span id="t-header" class="t-dim">──────────────────────────────────────────────────────────────────
+ASCIIForge v1.0.0  ·  font: none   ·  size: none  ·  border: none
 ──────────────────────────────────────────────────────────────────</span>
 
 <span class="t-blue"> █████╗ ███████╗ ██████╗██╗██╗    ███████╗ ██████╗ ██████╗  ██████╗ ███████╗</span>
@@ -310,11 +310,11 @@ ASCIIForge v1.0.0  ·  style: block  ·  size: medium  ·  border: none
 <span class="t-blue">╚═╝  ╚═╝╚══════╝ ╚═════╝╚═╝╚═╝   ╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝</span>
 
 <span class="t-dim">──────────────────────────────────────────────────────────────────</span>
-<span class="t-green">✓  output rendered in 12ms</span>
-<span class="t-dim">width: 76 chars  ·  height: 6 lines  ·  encoding: UTF-8</span></pre>
+<span id="t-response-time" class="t-green">✓  output rendered in 12ms</span>
+<span id="t-output-meta" class="t-dim">width: 76 chars  ·  height: 6 lines  ·  encoding: UTF-8</span></pre>
       </div>
-      {{if not .RecievedOutput}}
-      <div class="tc-empty">
+
+      <div id="response" class="tc-empty">
         <div class="tc-empty__icon">
           <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
             <path d="M5 5h16M5 10h10M5 15h13M5 20h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -324,9 +324,6 @@ ASCIIForge v1.0.0  ·  style: block  ·  size: medium  ·  border: none
         <p class="tc-empty__sub">Enter your text in the bar above, choose a font style, and press Generate to render your banner here.</p>
         <div class="tc-empty__hint">$ forge --text "your text" --style block</div>
       </div>
-     {{else}}
-
-     {{end}}
 
     </div><!-- /.tc-body -->
 

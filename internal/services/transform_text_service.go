@@ -3,12 +3,14 @@ package services
 import (
 	"fmt"
 	"net/http"
+	"slices"
+	"time"
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
 )
 
-func (s *Service) TransformText(w http.ResponseWriter, r *http.Request, text, banner string) *m.Error {
+func (s *Service) TransformText(w http.ResponseWriter, r *http.Request, text, banner string, start time.Time) *m.Error {
 	latinWords, err := s.AsciiTransformer.SplitInputByNewline(text)
 	if err != nil {
 		return &m.Error{
@@ -18,13 +20,24 @@ func (s *Service) TransformText(w http.ResponseWriter, r *http.Request, text, ba
 		}
 	}
 
-	asciiWords, err2 := s.AsciiTransformer.ReadWords(latinWords, banner)
+	asciiWords, cliEquivalent, err2 := s.AsciiTransformer.ReadWords(latinWords, banner)
 	if err2 != nil {
 		return err
 	}
 
 	formattedAsciiWords := s.AsciiTransformer.FormatAsciiWords(asciiWords)
 
-	fmt.Println(formattedAsciiWords)
+	uiCliInput := fmt.Sprintf(`forge --text "%s" --font %s --size small`, cliEquivalent, banner)
+	AsciiForgeHeader := fmt.Sprintf(`ASCIIForge v1.0.0  ·  font: %s  ·  size: small  ·  border: none`, banner)
+	responseTime := fmt.Sprintf("✓  output rendered in %s", time.Since(start).Abs().String())
+	toolbarFont := fmt.Sprintf("font: %s", banner)
+	toolbarChars := fmt.Sprintf("chars: %v", len(text))
+	toolbarLines := fmt.Sprintf("lines: %v", len(latinWords))
+	AsciiForgeFooter := fmt.Sprintf("width: %v chars  ·  height: %v lines  ·  encoding: UTF-8", len(slices.Max(latinWords)), len(latinWords))
+
+	err3 := s.AsciiTransformer.RenderAsciiArtOutput(w, r, formattedAsciiWords, uiCliInput, AsciiForgeHeader, responseTime, toolbarFont, toolbarChars, toolbarLines, AsciiForgeFooter)
+	if err3 != nil {
+		return err3
+	}
 	return nil
 }

@@ -2,7 +2,6 @@ package tranformer
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
@@ -21,8 +20,6 @@ func (at *AsciiTransform) ReadAsciiFromFont(rn rune, banner string) ([]string, *
 	case "thinkertoy":
 		fontPath = "fonts/thinker_toy.txt"
 	}
-
-	fmt.Println("in read: ", string(rn), banner)
 
 	file, err := os.Open(fontPath)
 	if err != nil {
