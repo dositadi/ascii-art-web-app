@@ -21,7 +21,7 @@ func (s *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	ctx := r.Context()
 
-	activeUser, err := s.Service.LoginUser(ctx, email, password)
+	activeUser, err := s.Service.LoginUser(ctx, &email, password)
 	if err != nil {
 		if err.Error == h.UNAUTHORIZED_ERR {
 			s.Service.RenderLoginPage(w, r, &err.Details)

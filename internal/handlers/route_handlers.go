@@ -11,7 +11,7 @@ import (
 type AsciiServices interface {
 	// Auth Handlers
 	RegisterUser(ctx context.Context, name, email, password string) *m.Error
-	LoginUser(ctx context.Context, email, password string) (m.ActiveUser, *m.Error)
+	LoginUser(ctx context.Context, email *string, password string) (m.ActiveUser, *m.Error)
 	CheckDBHealth() *m.Error
 
 	// Render Page functions

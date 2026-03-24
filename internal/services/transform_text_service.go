@@ -11,8 +11,6 @@ import (
 )
 
 func (s *Service) TransformText(w http.ResponseWriter, r *http.Request, text, banner string, start time.Time) *m.Error {
-	id := r.Context().Value("user_id")
-	fmt.Println(id)
 	latinWords, err := s.AsciiTransformer.SplitInputByNewline(text)
 	if err != nil {
 		return &m.Error{
@@ -40,7 +38,6 @@ func (s *Service) TransformText(w http.ResponseWriter, r *http.Request, text, ba
 	if len(latinWords) != 0 || latinWords != nil {
 		maxWordLength = len(slices.Max(latinWords))
 	}
-	fmt.Println(maxWordLength, " : ", slices.Max(latinWords))
 
 	AsciiForgeFooter := fmt.Sprintf("width: %v chars  ·  height: %v lines  ·  encoding: UTF-8", maxWordLength, len(latinWords))
 

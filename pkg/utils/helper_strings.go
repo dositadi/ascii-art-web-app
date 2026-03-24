@@ -69,9 +69,10 @@ const (
 
 // Repo Query statements
 const (
-	INSERT_INTO_USERS     = "INSERT INTO users (id,name,email,hashed_password) VALUES (?,?,?,?)"
-	CHECK_USER_EXISTS     = "SELECT EXISTS (SELECT 1 FROM users WHERE email=?)"
-	GET_HPASS_ID_AND_NAME = "SELECT id, name, hashed_password FROM users WHERE email=? LIMIT 1"
+	INSERT_INTO_USERS                = "INSERT INTO users (id,name,email,hashed_password) VALUES (?,?,?,?)"
+	CHECK_USER_EXISTS                = "SELECT EXISTS (SELECT 1 FROM users WHERE email=?)"
+	GET_HPASS_ID_AND_NAME_WITH_EMAIL = "SELECT id, name, hashed_password FROM users WHERE email=? LIMIT 1"
+	GET_HPASS_ID_AND_NAME_WITH_ID    = "SELECT id, name, hashed_password FROM users WHERE id=? LIMIT 1"
 )
 
 // Ascii keys
