@@ -3,7 +3,7 @@
 <header class="topbar">
   <div class="topbar__inner">
 
-    <a class="logo" href="home.html">
+    <a class="logo" href={{.HomePageRoute}}>
       <div class="logo__icon"><span>A_</span></div>
       <div class="logo__name">ASCIIForge<sub>app</sub></div>
     </a>
@@ -16,7 +16,7 @@
         <span>{{.UserName}}</span>
       </a>
 
-      <a class="nav__link" href="/home#about">
+      <a class="nav__link" href={{.AboutRoute}}>
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
           <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.4"/>
           <path d="M7 6.5v4M7 4.5v.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
@@ -24,7 +24,7 @@
         <span>About us</span>
       </a>
 
-      <a class="nav__link" href="/home#help">
+      <a class="nav__link" href={{.HelpRoute}}>
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
           <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.4"/>
           <path d="M5.5 5.5a1.5 1.5 0 112.12 1.37C7.24 7.14 7 7.55 7 8M7 9.5v.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>

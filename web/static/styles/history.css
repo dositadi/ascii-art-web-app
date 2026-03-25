@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Fira+Code:wght@400;500&display=swap');
 
-/* TOKENS  (identical to ascii.css) */
+/* ═══════════════════════════════════════════
+   TOKENS  (identical to ascii.css)
+═══════════════════════════════════════════ */
 :root {
   --blue:           #2563EB;
   --blue-dark:      #1D4ED8;
@@ -40,7 +42,9 @@
   --max-w:          1400px;
 }
 
-/* GLOBAL RESET */
+/* ═══════════════════════════════════════════
+   GLOBAL RESET
+═══════════════════════════════════════════ */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -70,7 +74,9 @@ img, video, svg, canvas {
   display: block;
 }
 
-/* TOPBAR */
+/* ═══════════════════════════════════════════
+   TOPBAR
+═══════════════════════════════════════════ */
 .topbar {
   position: sticky;
   top: 0;
@@ -229,7 +235,9 @@ img, video, svg, canvas {
 }
 .nav__link--logout:hover { background: var(--red-dark); border-color: var(--red-dark); color: #fff; }
 
-/* PAGE WRAPPER */
+/* ═══════════════════════════════════════════
+   PAGE WRAPPER
+═══════════════════════════════════════════ */
 .page {
   flex: 1;
   width: 100%;
@@ -305,7 +313,9 @@ img, video, svg, canvas {
   margin-top: 6px;
 }
 
-/* FILTER BAR */
+/* ═══════════════════════════════════════════
+   FILTER BAR
+═══════════════════════════════════════════ */
 .filter-bar {
   display: flex;
   align-items: center;
@@ -388,7 +398,9 @@ img, video, svg, canvas {
 
 .clear-all-btn:hover { background: #FECACA; border-color: var(--red); }
 
-/* HISTORY LIST */
+/* ═══════════════════════════════════════════
+   HISTORY LIST
+═══════════════════════════════════════════ */
 .history-list {
   display: flex;
   flex-direction: column;
@@ -403,7 +415,12 @@ img, video, svg, canvas {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  overflow: hidden;                 /* clips corner radius on children */
+  /* ── KEY FIX ──
+     overflow:hidden was suppressing the horizontal scroll on .hist-output.
+     Use axis-specific overflow so the card clips its border-radius visually
+     but never prevents children from scrolling horizontally.         */
+  overflow-x: hidden;   /* card never widens beyond viewport */
+  overflow-y: visible;  /* children can breathe vertically   */
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
@@ -663,11 +680,12 @@ img, video, svg, canvas {
 .hist-output {
   position: relative;
   z-index: 1;
-  overflow-x: auto;              /* ASCII scrolls here — never pushes parent */
+  overflow-x: auto;              /* ASCII scrolls HERE — never pushes parent wider */
   overflow-y: visible;
-  max-width: 100%;
+  max-width: 100%;               /* scroll container never exceeds card width */
   min-width: 0;
   -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
 }
 
 /* Themed scrollbar */
@@ -678,19 +696,21 @@ img, video, svg, canvas {
 
 .hist-output pre {
   font-family: var(--mono);
-  font-size: clamp(9px, 2vw, 13px);
+  font-size: clamp(8px, 1.8vw, 13px);  /* scales from 8px on 320px up to 13px on desktop */
   line-height: 1.5;
-  color: var(--term-blue);       /* blue — matches the forge output style */
-  white-space: pre;              /* NEVER change — preserves ASCII art */
+  color: var(--term-blue);
+  white-space: pre;              /* NEVER change — preserves ASCII art structure */
   word-break: normal;
   overflow-wrap: normal;
-  min-width: max-content;        /* lets pre be as wide as needed inside scroller */
+  min-width: max-content;        /* pre can be as wide as it needs INSIDE the scroller */
   padding-bottom: 4px;
 }
 
-/* PAGINATION
+/* ═══════════════════════════════════════════
+   PAGINATION
    CSS-only: uses checkbox + :checked to
-   show/hide pages — no JavaScript. */
+   show/hide pages — no JavaScript.
+═══════════════════════════════════════════ */
 .pagination-triggers { display: none; }   /* hide all radio inputs */
 
 .pagination {
@@ -759,7 +779,9 @@ img, video, svg, canvas {
 }
 .page-btn--active:hover:not([aria-disabled="true"]) { background: var(--blue-dark); border-color: var(--blue-dark); color: #fff; }
 
-/* EMPTY STATE */
+/* ═══════════════════════════════════════════
+   EMPTY STATE
+═══════════════════════════════════════════ */
 .history-empty {
   display: flex;
   flex-direction: column;
@@ -851,7 +873,9 @@ img, video, svg, canvas {
 .history-empty__cta:hover { background: var(--blue-dark); transform: translateY(-2px); }
 .history-empty__cta:active { transform: translateY(0); }
 
-/* FOOTER  (identical to ascii.css) */
+/* ═══════════════════════════════════════════
+   FOOTER  (identical to ascii.css)
+═══════════════════════════════════════════ */
 .footer {
   background: var(--navy);
   border-top: 1px solid #1E293B;
@@ -972,81 +996,169 @@ img, video, svg, canvas {
 }
 .footer__bottom-links a:hover { color: #64748B; }
 
-/* KEYFRAMES */
+/* ═══════════════════════════════════════════
+   KEYFRAMES
+═══════════════════════════════════════════ */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* RESPONSIVE — MOBILE-FIRST min-width ladder */
+/* ═══════════════════════════════════════════
+   RESPONSIVE — PURE MOBILE-FIRST
+   Base styles target 320px (smallest phone).
+   Each min-width layer adds capability upward.
+   No max-width overrides that fight min-width.
 
-/* ── ≥ 480px: large phone ── */
+   Ladder:
+     base          320px  smallest phone
+     min-width 480px      large phone
+     min-width 600px      phablet
+     min-width 768px      tablet portrait
+     min-width 960px      tablet landscape
+     min-width 1280px     laptop +
+═══════════════════════════════════════════ */
+
+/* ── BASE: 320px — smallest phone ──────────
+   Everything stacks, icon-only nav,
+   labels hidden, cards slim.
+─────────────────────────────────────────── */
+
+/* Nav: icon-only on all small screens */
+.nav__user           { display: none; }
+.nav__link span      { display: none; }
+.nav__link           { padding: 8px; min-width: 40px; }
+
+/* Logo: always show icon; hide text on tiny screens */
+.logo__name          { display: none; }
+
+/* Page: tight side padding on small screens */
+.page {
+  padding: clamp(14px, 3vw, 20px) clamp(6px, 1.5vw, 12px) clamp(40px, 8vw, 64px);
+  gap: clamp(12px, 3vw, 20px);
+}
+
+/* Topbar: compact height on small */
+.topbar__inner {
+  height: clamp(52px, 8vw, 68px);
+  padding: 0 clamp(6px, 1.5vw, 12px);
+  gap: clamp(4px, 1vw, 10px);
+}
+
+/* Card header: stacks vertically on smallest */
+.hist-card__header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(8px, 2vw, 12px);
+  padding: clamp(10px, 2vw, 14px) clamp(10px, 2.5vw, 16px);
+}
+
+/* Hide date and status on smallest */
+.hist-card__date              { display: none; }
+.hist-terminal__bar-status    { display: none; }
+
+/* Action buttons: icon-only on smallest */
+.hist-card__actions { flex-wrap: wrap; gap: 5px; }
+.hbtn span          { display: none; }
+.hbtn               { padding: 8px; min-width: 40px; min-height: 40px; }
+
+/* Terminal bar: compact */
+.hist-terminal__bar { padding: 6px 10px; }
+
+/* Terminal body: tight padding */
+.hist-terminal__body { padding: 12px 10px 14px; }
+
+/* Filter bar: wraps on small */
+.filter-bar { flex-wrap: wrap; }
+
+/* Footer: single column on tiny */
+.footer__top {
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 4vw, 24px);
+}
+.footer__top > div:not(:first-child) { display: none; }
+
+/* Pagination info: hide on tiny */
+.pagination__info { display: none; }
+
+/* Page header: stacks on tiny */
+.page-header {
+  flex-direction: column;
+  gap: clamp(8px, 2vw, 14px);
+}
+
+/* ── ≥ 480px: large phone ───────────────────
+   Logo name back; button labels appear;
+   card header stays stacked but labels show.
+─────────────────────────────────────────── */
 @media (min-width: 480px) {
-  .hist-card__actions { flex-wrap: nowrap; }
-  .hbtn span { display: inline; }
+  .logo__name         { display: block; }
+  .nav__link span     { display: inline; }
+  .nav__link          { padding: clamp(7px, 1.5vw, 9px) clamp(9px, 2vw, 13px); }
+  .hbtn span          { display: inline; }
+  .hbtn               { padding: clamp(6px, 1.2vw, 8px) clamp(9px, 2vw, 12px); }
+  .hist-card__date    { display: block; }
+  .pagination__info   { display: block; }
+  .hist-terminal__bar-status { display: flex; }
+  .footer__top        { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .footer__top > div:not(:first-child) { display: block; }
+  .hist-terminal__body { padding: clamp(12px, 2.5vw, 18px) clamp(12px, 2.5vw, 18px); }
 }
 
-/* ── ≥ 600px: phablet ── */
+/* ── ≥ 600px: phablet ───────────────────────
+   User pill appears; card header goes inline.
+─────────────────────────────────────────── */
 @media (min-width: 600px) {
-  .nav__user { display: inline-flex; }
-  .hist-card__header { flex-wrap: nowrap; }
+  .nav__user          { display: inline-flex; }
+  .hist-card__header  {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: clamp(12px, 2.5vw, 18px) clamp(14px, 3vw, 22px);
+  }
+  .hist-card__actions { flex-wrap: nowrap; }
+  .topbar__inner      {
+    height: clamp(60px, 8vw, 76px);
+    padding: 0 clamp(10px, 2vw, 16px);
+  }
+  .page               {
+    padding: clamp(20px, 4vw, 36px) clamp(8px, 1.5vw, 14px) clamp(48px, 8vw, 72px);
+  }
 }
 
-/* ── ≥ 768px: tablet portrait ── */
+/* ── ≥ 768px: tablet portrait ───────────────
+   Full nav text; wider paddings.
+─────────────────────────────────────────── */
 @media (min-width: 768px) {
-  .hist-output pre { font-size: clamp(11px, 1.8vw, 13px); }
-  .footer__top { grid-template-columns: 2fr 1fr 1fr 1fr; }
+  .nav__link          { padding: clamp(8px, 1.5vw, 10px) clamp(12px, 2vw, 14px); }
+  .hist-output pre    { font-size: clamp(10px, 1.8vw, 13px); }
+  .page               {
+    padding: clamp(28px, 4vw, 44px) clamp(10px, 1.5vw, 16px) clamp(56px, 8vw, 80px);
+  }
+  .filter-bar         { flex-wrap: nowrap; }
+  .footer__top        { grid-template-columns: 2fr 1fr 1fr 1fr; gap: clamp(24px, 4vw, 48px); }
+  .footer__bottom     { flex-direction: row; align-items: center; }
+  .page-header        { flex-direction: row; align-items: flex-start; }
 }
 
-/* ── ≥ 960px: tablet landscape ── */
+/* ── ≥ 960px: tablet landscape ──────────────
+   Comfortable paddings; full terminal body.
+─────────────────────────────────────────── */
 @media (min-width: 960px) {
-  .filter-bar { flex-wrap: nowrap; }
+  .hist-terminal__body { padding: clamp(16px, 3vw, 22px) clamp(16px, 3vw, 22px); }
+  .hist-output pre     { font-size: clamp(11px, 1.5vw, 13px); }
+  .page                {
+    padding: clamp(36px, 4vw, 48px) clamp(10px, 1.5vw, 16px) clamp(64px, 8vw, 80px);
+  }
 }
 
-/* ── ≥ 1280px: laptop and above ── */
+/* ── ≥ 1280px: laptop and above ─────────────
+   Edge-to-edge with minimal side padding.
+─────────────────────────────────────────── */
 @media (min-width: 1280px) {
-  .topbar__inner { padding: 0 clamp(16px, 2vw, 24px); }
-  .page { padding: 48px clamp(12px, 1.5vw, 20px) 80px; }
-  .hist-output pre { font-size: 13px; }
-  .footer__top { padding: 56px clamp(12px, 1.5vw, 16px) 44px; }
-  .footer__bottom { padding: 22px clamp(12px, 1.5vw, 16px); }
-}
-
-/* ── Max-width collapse: ≤ 360px (320–360px phones) ── */
-@media (max-width: 360px) {
-  .nav__link:not(.nav__link--history):not(.nav__link--logout) { display: none; }
-  .logo__name { display: none; }
-  .topbar__inner { padding: 0 6px; height: 54px; }
-  .page { padding: 12px 4px 36px; }
-  .hist-card__actions .hbtn span { display: none; }
-  .hist-card__actions .hbtn { padding: 7px; min-width: 36px; }
-  .pagination__info { display: none; }
-  .footer__top { grid-template-columns: 1fr; }
-  .footer__top > div:not(:first-child) { display: none; }
-}
-
-/* ── ≤ 480px: standard phone ── */
-@media (max-width: 480px) {
-  .nav__user { display: none; }
-  .nav__link span { display: none; }
-  .nav__link { padding: 8px; }
-  .hist-card__date { display: none; }
-  .hist-terminal__bar-status span { display: none; }
-  .footer__top { grid-template-columns: 1fr 1fr; gap: 20px; }
-}
-
-/* ── ≤ 600px: large phone / phablet ── */
-@media (max-width: 600px) {
-  .nav__user { display: none; }
-  .nav__link span { display: none; }
-  .nav__link { padding: 8px 10px; }
-  .hist-card__header { gap: 8px; }
-  .hist-card__actions { gap: 5px; }
-  .footer__top { grid-template-columns: 1fr 1fr; }
-}
-
-/* ── ≤ 768px: tablet portrait ── */
-@media (max-width: 768px) {
-  .footer__top { grid-template-columns: 1fr 1fr; gap: 24px; }
-  .footer__bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .topbar__inner      { padding: 0 16px; height: 76px; }
+  .page               { padding: 48px 16px 80px; gap: 28px; }
+  .hist-output pre    { font-size: 13px; }
+  .footer__top        { padding: 52px 16px 40px; }
+  .footer__bottom     { padding: 20px 16px; }
 }

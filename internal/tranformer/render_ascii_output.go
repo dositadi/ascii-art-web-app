@@ -8,7 +8,7 @@ import (
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
 )
 
-func (at *AsciiTransform) RenderAsciiArtOutput(w http.ResponseWriter, r *http.Request, formattedAsciiWords, uiCliInput, asciiForgeHeader, responseTime, toolbarFont, toolbarChars, toolbarLines, asciiForgeFooter string) *m.Error {
+func (at *AsciiTransform) RenderAsciiArtOutput(w http.ResponseWriter, r *http.Request, text, banner, cliEquivalent, formattedAsciiWords, uiCliInput, asciiForgeHeader, responseTime, toolbarFont, toolbarChars, toolbarLines, asciiForgeFooter string) *m.Error {
 	temp, err := template.New("ascii.html").ParseFiles("web/static/internal_pages/ascii.html", "web/templates/ascii_partial.html", "web/templates/ascii_response_partial.html")
 	if err != nil {
 		return &m.Error{
@@ -20,6 +20,9 @@ func (at *AsciiTransform) RenderAsciiArtOutput(w http.ResponseWriter, r *http.Re
 
 	// Response details
 	responseDetails := struct {
+		InputText           string
+		CliEquivalent       string
+		Font                string
 		FormattedAsciiWords string
 		UiCliInput          string
 		AsciiForgeHeader    string
@@ -29,6 +32,9 @@ func (at *AsciiTransform) RenderAsciiArtOutput(w http.ResponseWriter, r *http.Re
 		ToolbarLines        string
 		AsciiForgeFooter    string
 	}{
+		Font:                banner,
+		InputText:           text,
+		CliEquivalent:       cliEquivalent,
 		FormattedAsciiWords: formattedAsciiWords,
 		UiCliInput:          uiCliInput,
 		AsciiForgeHeader:    asciiForgeHeader,

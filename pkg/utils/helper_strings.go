@@ -53,15 +53,15 @@ const (
 
 // Request routes
 const (
-	LOGIN_ROUTE    = "/auth/login"
-	SIGNUP_ROUTE   = "/auth/register"
-	WELCOME_ROUTE  = "/"
-	HOME_ROUTE     = "/home"
-	ASCII_ROUTE    = "/home/ascii-art"
-	HISTORY_ROUTE  = "/home/ascii-art/history"
-	ABOUT_US_ROUTE = "/home#"
-	CONTRIBUTORS_ROUTE = "/home#"
-	// TRANSFORM_TEXT_ROUTE = "/home/ascii-art/transform-text"
+	LOGIN_ROUTE        = "/auth/login"
+	SIGNUP_ROUTE       = "/auth/register"
+	WELCOME_ROUTE      = "/"
+	HOME_ROUTE         = "/home"
+	ASCII_ROUTE        = "/home/ascii-art"
+	HISTORY_ROUTE      = "/home/ascii-art/history"
+	ABOUT_US_ROUTE     = "/home#about"
+	CONTRIBUTORS_ROUTE = "/home#contributors"
+	HELP_ROUTE         = "/home#help"
 )
 
 // Internal folder path
@@ -72,10 +72,14 @@ const (
 
 // Repo Query statements
 const (
+	// Users table
 	INSERT_INTO_USERS                = "INSERT INTO users (id,name,email,hashed_password) VALUES (?,?,?,?)"
 	CHECK_USER_EXISTS                = "SELECT EXISTS (SELECT 1 FROM users WHERE email=?)"
 	GET_HPASS_ID_AND_NAME_WITH_EMAIL = "SELECT id, name, hashed_password FROM users WHERE email=? LIMIT 1"
 	GET_HPASS_ID_AND_NAME_WITH_ID    = "SELECT id, name, hashed_password FROM users WHERE id=? LIMIT 1"
+
+	// AsciiTexts Table
+	INSERT_INTO_ASCII_TEXTS = "INSERT INTO ascii (id, user_id, input_text, font, ascii_text, downloaded_as_image, downloaded_as_txt) VALUES (?,?,?,?,?,?,?)"
 )
 
 // Ascii keys

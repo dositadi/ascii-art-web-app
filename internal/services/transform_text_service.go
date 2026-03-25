@@ -43,7 +43,7 @@ func (s *Service) TransformText(w http.ResponseWriter, r *http.Request, text, ba
 
 	AsciiForgeFooter := fmt.Sprintf("width: %v chars  ·  height: %v lines  ·  encoding: UTF-8", maxWord, len(latinWords))
 
-	err3 := s.AsciiTransformer.RenderAsciiArtOutput(w, r, formattedAsciiWords, uiCliInput, AsciiForgeHeader, responseTime, toolbarFont, toolbarChars, toolbarLines, AsciiForgeFooter)
+	err3 := s.AsciiTransformer.RenderAsciiArtOutput(w, r, text, banner, cliEquivalent, formattedAsciiWords, uiCliInput, AsciiForgeHeader, responseTime, toolbarFont, toolbarChars, toolbarLines, AsciiForgeFooter)
 	if err3 != nil {
 		return err3
 	}

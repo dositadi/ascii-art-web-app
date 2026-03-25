@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS ascii (
+    id CHAR(36) PRIMARY KEY NOT NULL,
+    user_id CHAR(36) NOT NULL,
+    input_text TEXT NOT NULL,
+    font VARCHAR(255) NOT NULL,
+    ascii_text TEXT NOT NULL,
+    downloaded_as_image BOOLEAN DEFAULT FALSE,
+    downloaded_as_txt BOOLEAN DEFAULT FALSE,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX(font),
+    FOREIGN KEY(user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+);

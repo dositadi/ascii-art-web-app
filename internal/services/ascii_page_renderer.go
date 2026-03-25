@@ -2,7 +2,6 @@ package services
 
 import (
 	"net/http"
-	"strings"
 	"text/template"
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
@@ -31,44 +30,37 @@ func (s *Service) RenderAsciiArtPage(w http.ResponseWriter, r *http.Request) *m.
 		return err1
 	}
 
-	names := strings.Fields(userName)
-	var namesPrefix strings.Builder
-
-	for i, name := range names {
-		if i > 2 {
-			break
-		}
-		if name != "" {
-			namesPrefix.WriteString(string(name[0]))
-		}
-	}
+	namePrefix := s.GetNamePrefix(userName)
 
 	asciiPageDetails := struct {
-		UserName         string
-		NamePrefix       string
-		LogOutRoute      string
-		TextKey          string
-		BannerKey        string
-		PostRoute        string
-		Output           string
-		DownloadImgRoute string
-		DownloadTxtRoute string
-		SaveOutputRoute  string
-		ViewHistoryRoute string
-		RecievedOutput   bool
+		UserName          string
+		NamePrefix        string
+		LogOutRoute       string
+		TextKey           string
+		BannerKey         string
+		PostRoute         string
+		Output            string
+		DownloadImgRoute  string
+		DownloadTxtRoute  string
+		SaveOutputRoute   string
+		ViewHistoryRoute  string
+		RecievedOutput    bool
+		AboutRoute        string
+		HelpRoute         string
+		ContributorsRoute string
+		HomePageRoute     string
 	}{
-		UserName:         userName,
-		NamePrefix:       namesPrefix.String(),
-		TextKey:          h.TEXT_KEY,
-		BannerKey:        h.BANNER_KEY,
-		LogOutRoute:      "",
-		PostRoute:        h.ASCII_ROUTE,
-		RecievedOutput:   false,
-		DownloadImgRoute: "",
-		DownloadTxtRoute: "",
-		SaveOutputRoute:  "",
-		ViewHistoryRoute: h.HISTORY_ROUTE,
-		Output:           "",
+		UserName:          userName,
+		NamePrefix:        namePrefix,
+		TextKey:           h.TEXT_KEY,
+		BannerKey:         h.BANNER_KEY,
+		PostRoute:         h.ASCII_ROUTE,
+		RecievedOutput:    false,
+		ViewHistoryRoute:  h.HISTORY_ROUTE,
+		AboutRoute:        h.ABOUT_US_ROUTE,
+		HelpRoute:         h.HELP_ROUTE,
+		ContributorsRoute: h.CONTRIBUTORS_ROUTE,
+		HomePageRoute:     h.HOME_ROUTE,
 	}
 
 	if s.GetHxRequestStatus(r) {

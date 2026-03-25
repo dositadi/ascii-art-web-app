@@ -54,6 +54,7 @@ func (a *App) InitializeRoutes() {
 
 	// Text transform route
 	a.Router.HandleFunc("POST "+h.ASCII_ROUTE, handler.TransformTextHandler)
+	a.Router.Handle("POST /home/ascii/save-ascii", mid.AuthenticateUser(http.HandlerFunc(handler.SaveAsciiHandler)))
 
 	a.Router.HandleFunc("GET /health", handler.HealthCheckHandler)
 }

@@ -56,18 +56,3 @@ func (r *ServiceRepo) InsertUser(ctx context.Context, user m.User) *m.Error {
 	}
 	return nil
 }
-
-func (r *ServiceRepo) CheckIfUserExists(ctx context.Context, email string) (bool, *m.Error) {
-	var exists bool
-	row := r.DB.QueryRowContext(ctx, h.CHECK_USER_EXISTS, email)
-
-	if err := row.Scan(&exists); err != nil {
-		return false, &m.Error{
-			Error:   h.SERVER_ERR,
-			Details: err.Error(),
-			Code:    h.SERVER_ERR_CODE,
-		}
-	}
-
-	return exists, nil
-}
