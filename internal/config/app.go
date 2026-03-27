@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	h_ "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/internal/handlers"
@@ -60,12 +61,10 @@ func (a *App) InitializeRoutes() {
 }
 
 func (a *App) InitializeDatabase() *m.Error {
-	c := Config{}
-	config := c.GetDBConfig()
-
 	var err error
 
-	a.DB, err = sql.Open("mysql", config.DBUrl)
+	a.DB, err = sql.Open("mysql", os.Getenv("ASCII_DB_URL"))
+
 	if err != nil {
 		return &m.Error{
 			Error:   h.SERVER_ERR,

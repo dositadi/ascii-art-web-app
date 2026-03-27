@@ -81,7 +81,8 @@ const (
 	GET_HPASS_ID_AND_NAME_WITH_ID    = "SELECT id, name, hashed_password FROM users WHERE id=? LIMIT 1"
 
 	// AsciiTexts Table
-	INSERT_INTO_ASCII_TEXTS = "INSERT INTO ascii_outputs (id,user_id,input_text,font,ascii_text) VALUES (?,?,?,?,?)"
+	INSERT_INTO_ASCII_TEXTS  = "INSERT INTO ascii_outputs (id,user_id,input_text,font,ascii_text) VALUES (?,?,?,?,?)"
+	GET_ALL_USER_SAVED_ASCII = "SELECT id, input_text, font, ascii_text, created_at FROM ascii_outputs WHERE user_id=? ORDER BY created_at DESC LIMIT 5"
 )
 
 // Ascii keys

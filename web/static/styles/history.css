@@ -405,7 +405,14 @@ img, video, svg, canvas {
   display: flex;
   flex-direction: column;
   gap: clamp(14px, 3vw, 22px);
+  /*
+   * Width chain — list must also be constrained so cards inside it
+   * cannot escape the page boundary.
+   */
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
+  box-sizing: border-box;
   opacity: 0;
   animation: fadeUp 0.4s ease 0.18s forwards;
 }
@@ -415,13 +422,23 @@ img, video, svg, canvas {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  /* ── KEY FIX ──
-     overflow:hidden was suppressing the horizontal scroll on .hist-output.
-     Use axis-specific overflow so the card clips its border-radius visually
-     but never prevents children from scrolling horizontally.         */
-  overflow-x: hidden;   /* card never widens beyond viewport */
-  overflow-y: visible;  /* children can breathe vertically   */
+  /*
+   * OVERFLOW STRATEGY (mirrors the ascii page fix exactly):
+   *   - overflow-x: hidden  → card width is pinned; no child can widen it
+   *   - overflow-y: visible → card height grows naturally with content
+   * DO NOT use overflow: hidden — that would suppress child horizontal scroll.
+   */
+  overflow-x: hidden;
+  overflow-y: visible;
+  /*
+   * WIDTH CHAIN — every ancestor must be clamped:
+   *   width: 100%        → fills parent (.history-list / .page)
+   *   max-width: 100%    → hard cap: never wider than its parent
+   *   min-width: 0       → prevents flex/grid blowout
+   *   box-sizing: border-box → border included in width calculation
+   */
   width: 100%;
+  max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -582,16 +599,19 @@ img, video, svg, canvas {
 .hbtn--delete:hover { background: rgba(248, 81, 73, 0.14); border-color: rgba(248, 81, 73, 0.5); }
 
 /* ── Terminal output panel ── */
-/*
-  Simplified terminal — no chrome bar overload.
-  Just the dark body + a slim top bar with style info.
-*/
 .hist-terminal {
   background: var(--term-bg);
   border-top: 1px solid var(--term-border);
-  min-width: 0;
+  /*
+   * Width chain continued — terminal panel must never widen the card.
+   * width:100% + max-width:100% + min-width:0 is the complete constraint.
+   */
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
+  /* contain:layout stops descendant content from affecting this element's size */
+  contain: layout;
 }
 
 .hist-terminal__bar {
@@ -655,10 +675,20 @@ img, video, svg, canvas {
 
 /* Output body — the scroll container lives here */
 .hist-terminal__body {
-  padding: clamp(14px, 3vw, 22px) clamp(14px, 3vw, 22px);
+  padding: clamp(14px, 3vw, 22px);
+  /*
+   * CRITICAL: Do NOT use overflow-x:hidden here.
+   * overflow-x:hidden on a parent suppresses overflow-x:auto on children
+   * (browsers collapse the child's scroll axis when parent is hidden).
+   *
+   * Instead: clip only — clips rendering without establishing a scroll container.
+   * This keeps the card width fixed AND allows .hist-output to scroll internally.
+   */
+  overflow: clip;
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
-  overflow-x: hidden;   /* tc-body rule: prevent body widening */
-  overflow-y: visible;
+  box-sizing: border-box;
   position: relative;
 }
 
@@ -676,16 +706,24 @@ img, video, svg, canvas {
   z-index: 0;
 }
 
-/* The dedicated scroll container for the <pre> */
+/* The dedicated scroll container for the <pre> — Rule 12 compliance */
 .hist-output {
   position: relative;
   z-index: 1;
-  overflow-x: auto;              /* ASCII scrolls HERE — never pushes parent wider */
+  /*
+   * THIS is the one and only horizontal scroll container.
+   * overflow-x: auto — scrolls when content exceeds width
+   * max-width: 100%  — never wider than .hist-terminal__body
+   * min-width: 0     — prevents flex blowout
+   * No parent above this should have overflow:hidden (suppresses this).
+   */
+  overflow-x: auto;
   overflow-y: visible;
-  max-width: 100%;               /* scroll container never exceeds card width */
+  max-width: 100%;
   min-width: 0;
-  -webkit-overflow-scrolling: touch;
+  width: 100%;
   box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Themed scrollbar */
