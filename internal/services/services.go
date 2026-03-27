@@ -20,6 +20,7 @@ type Repo interface {
 
 	// Ascii table CRUD operations
 	InsertAscii(ctx context.Context, ascii m.Ascii, user_id string) *m.Error
+	GetAllUsersSavedAscii(ctx context.Context, user_id string) ([]m.Ascii, *m.Error)
 }
 
 type Transformer interface {
@@ -52,6 +53,7 @@ func (s *Service) GetNamePrefix(userName string) string {
 
 	for i, name := range names {
 		if i > 2 {
+			namesPrefix.WriteString("X")
 			break
 		}
 		if name != "" {
