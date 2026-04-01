@@ -93,6 +93,7 @@ func (s *Service) RenderHistoryPage(w http.ResponseWriter, r *http.Request, font
 
 	items = page * len(asciiArts)
 
+	// Checking how many ascii have been displayed.
 	var displayed int
 
 	if len(asciiArts) < limit {
