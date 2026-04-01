@@ -93,7 +93,13 @@ func (s *Service) RenderHistoryPage(w http.ResponseWriter, r *http.Request, font
 
 	items = page * len(asciiArts)
 
-	//start := (items - len(asciiArts)) + 1
+	var displayed int
+
+	if len(asciiArts) < limit {
+		displayed = length
+	} else {
+		displayed = items
+	}
 
 	var disableNext, disablePrev bool
 
@@ -138,7 +144,7 @@ func (s *Service) RenderHistoryPage(w http.ResponseWriter, r *http.Request, font
 		AllFilterRoute       string
 		ClearAllRoute        string
 		TotalBanner          string
-		//DisplayFeedback      string
+		DisplayFeedback      string
 	}{
 		DisableNext:          disableNext,
 		DisablePrev:          disablePrev,
@@ -158,7 +164,7 @@ func (s *Service) RenderHistoryPage(w http.ResponseWriter, r *http.Request, font
 		AllFilterRoute:       h.HISTORY_ROUTE + h.ALL_HISTORY_QUERY,
 		ClearAllRoute:        h.CLEAR_ALL_ROUTE,
 		TotalBanner:          strconv.Itoa(length) + " banners saved",
-		//DisplayFeedback:      "showing " + strconv.Itoa(start) + "-" + strconv.Itoa(items) + " of " + strconv.Itoa(length) + " banners",
+		DisplayFeedback:      "showing " + strconv.Itoa(displayed) + " of " + strconv.Itoa(length) + " banners",
 	}
 
 	if s.GetHxRequestStatus(r) {
