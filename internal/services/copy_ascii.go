@@ -11,8 +11,24 @@ import (
 )
 
 func (s *Service) CopyAscii(w http.ResponseWriter, r *http.Request) *m.Error {
+	if err := r.ParseForm(); err != nil {
+		return &m.Error{
+			Error:   h.SERVER_ERR,
+			Details: err.Error(),
+			Code:    h.SERVER_ERR_CODE,
+		}
+	}
+
 	text := r.FormValue(h.TEXT_KEY)
 	font := r.FormValue(h.BANNER_KEY)
+
+	input := r.FormValue("input")
+	fetchedFont := r.FormValue("font")
+
+	if text == "" && font == "" {
+		text = input
+		font = fetchedFont
+	}
 
 	formattedAsciiWords, err := s.FormatAscii(text, font)
 	if err != nil {

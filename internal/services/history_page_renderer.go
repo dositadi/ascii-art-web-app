@@ -146,6 +146,7 @@ func (s *Service) RenderHistoryPage(w http.ResponseWriter, r *http.Request, font
 		ClearAllRoute        string
 		TotalBanner          string
 		DisplayFeedback      string
+		CopyOutputRoute      string
 	}{
 		DisableNext:          disableNext,
 		DisablePrev:          disablePrev,
@@ -166,6 +167,7 @@ func (s *Service) RenderHistoryPage(w http.ResponseWriter, r *http.Request, font
 		ClearAllRoute:        h.CLEAR_ALL_ROUTE,
 		TotalBanner:          strconv.Itoa(length) + " banners saved",
 		DisplayFeedback:      "showing " + strconv.Itoa(displayed) + " of " + strconv.Itoa(length) + " banners",
+		CopyOutputRoute:      h.COPY_ASCII_ROUTE,
 	}
 
 	if s.GetHxRequestStatus(r) {
