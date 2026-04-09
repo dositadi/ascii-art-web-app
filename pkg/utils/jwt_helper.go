@@ -12,7 +12,7 @@ func GenerateAccessJWT(user m.ActiveUser) (string, *m.Error) {
 	secretKey := os.Getenv("ASCII_JWT_SECRET_KEY")
 
 	user.RegisteredClaims = jwt.RegisteredClaims{
-		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(10 * time.Second))),
+		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(4 * time.Hour))),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, user)
