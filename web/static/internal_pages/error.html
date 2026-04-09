@@ -31,13 +31,7 @@
     </a>
 
     <a class="back-btn" href="javascript:history.back()">
-      <!--
-        No JS fallback: replace href with a real URL
-        e.g. href="home.html" — the history.back() only
-        works if there is a previous page in the session.
-        In production this should be href="{{ .PreviousURL }}"
-        or simply href="home.html" as a safe default.
-      -->
+      
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path d="M10 3L6 8l4 5" stroke="currentColor" stroke-width="1.6"
               stroke-linecap="round" stroke-linejoin="round"/>
@@ -49,9 +43,6 @@
 </header>
 
 
-<!-- ══════════════════════════════════════
-     PAGE  — holds the ASCII bg + error card
-══════════════════════════════════════ -->
 <main class="page" id="main-content">
 
   <!-- Subtle ASCII tiled background -->

@@ -21,14 +21,16 @@ func (s *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	ctx := r.Context()
 
+	if len(password) < 6 {
+		err := "Incorrect password"
+		s.Service.RenderLoginPage(w, r, &err)
+		return
+	}
+
 	activeUser, err := s.Service.LoginUser(ctx, &email, password)
 	if err != nil {
-		if err.Error == h.UNAUTHORIZED_ERR {
-			s.Service.RenderLoginPage(w, r, &err.Details)
-			return
-		} else {
-			// Display in the page for errors
-		}
+		s.Service.RenderLoginPage(w, r, &err.Details)
+		return
 	}
 
 	refreshToken, err2 := h.GenerateRefreshJWT(activeUser)

@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -16,7 +15,6 @@ func (s *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	userPassword := strings.TrimSpace(r.FormValue("password"))
 
 	name := firstName + " " + lastName
-	fmt.Println(userPassword)
 
 	ctx := r.Context()
 
