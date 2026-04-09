@@ -8,7 +8,7 @@ import (
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
 )
 
-func (r *ServiceRepo) UpdateAsciiOutputsTable(ctx context.Context, id, field string) *m.Error {
+func (r *ServiceRepo) UpdateAsciiOutputsTable(ctx context.Context, id string) *m.Error {
 	tx, err := r.DB.BeginTx(ctx, &sql.TxOptions{})
 	if err != nil {
 		return &m.Error{

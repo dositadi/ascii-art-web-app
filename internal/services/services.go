@@ -24,7 +24,7 @@ type Repo interface {
 	DeleteFromAscii(ctx context.Context, user_id string) *m.Error
 	ClearAll(ctx context.Context, user_id string) *m.Error
 	GetTableLenght(ctx context.Context, user_id, font string) (int, *m.Error)
-	UpdateAsciiOutputsTable(ctx context.Context, id, field string) *m.Error
+	UpdateAsciiOutputsTable(ctx context.Context, id string) *m.Error
 }
 
 type Transformer interface {

@@ -14,7 +14,6 @@ import (
 
 func (s *Service) DownloadAsTxt(w http.ResponseWriter, r *http.Request, text, font, id string) *m.Error {
 	formattedAscii, err := s.FormatAscii(text, font)
-	fmt.Println(font, text)
 	if err != nil {
 		return err
 	}
@@ -26,7 +25,6 @@ func (s *Service) DownloadAsTxt(w http.ResponseWriter, r *http.Request, text, fo
 	w.Header().Set("Content-Disposition", attachment)
 	w.Header().Set("Content-Type", "text/plain")
 	w.Header().Set("Content-Length", strconv.Itoa(len(formattedAscii)))
-	//w.Header().Set("HX-Reswap", "none")
 
 	_, err2 := io.Copy(w, strings.NewReader(formattedAscii))
 	if err2 != nil {
@@ -37,7 +35,7 @@ func (s *Service) DownloadAsTxt(w http.ResponseWriter, r *http.Request, text, fo
 		}
 	}
 
-	err3 := s.Repository.UpdateAsciiOutputsTable(r.Context(), id, h.DOWNLOAD_ASCII_AS_TXT_COL)
+	err3 := s.Repository.UpdateAsciiOutputsTable(r.Context(), id)
 	if err3 != nil {
 		fmt.Println(err3.Details)
 		return err3
