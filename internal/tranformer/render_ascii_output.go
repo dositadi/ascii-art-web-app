@@ -39,46 +39,11 @@ func (at *AsciiTransform) RenderAsciiArtOutput(w http.ResponseWriter, r *http.Re
 		AsciiForgeFooter:    asciiForgeFooter,
 	}
 
-	// Main Ascii page details for fallback
-	asciiPageDetails := struct {
-		LogOutRoute      string
-		TextKey          string
-		BannerKey        string
-		PostRoute        string
-		Output           string
-		DownloadImgRoute string
-		DownloadTxtRoute string
-		SaveOutputRoute  string
-		ViewHistoryRoute string
-		RecievedOutput   bool
-	}{
-		TextKey:          h.TEXT_KEY,
-		BannerKey:        h.BANNER_KEY,
-		LogOutRoute:      "",
-		PostRoute:        h.ASCII_ROUTE,
-		RecievedOutput:   false,
-		DownloadImgRoute: "",
-		DownloadTxtRoute: "",
-		SaveOutputRoute:  h.SAVE_ASCII_ROUTE,
-		ViewHistoryRoute: "",
-		Output:           "",
-	}
-
-	if r.Header.Get("HX-Request") == "true" {
-		if err2 := temp.ExecuteTemplate(w, "ascii-response", responseDetails); err2 != nil {
-			return &m.Error{
-				Error:   h.PAGE_PARSING_ERROR,
-				Details: err2.Error(),
-				Code:    h.PAGE_PARSING_CODE,
-			}
-		}
-	} else {
-		if err3 := temp.Execute(w, asciiPageDetails); err3 != nil {
-			return &m.Error{
-				Error:   h.PAGE_PARSING_ERROR,
-				Details: err3.Error(),
-				Code:    h.PAGE_PARSING_CODE,
-			}
+	if err2 := temp.ExecuteTemplate(w, "ascii-response", responseDetails); err2 != nil {
+		return &m.Error{
+			Error:   h.PAGE_PARSING_ERROR,
+			Details: err2.Error(),
+			Code:    h.PAGE_PARSING_CODE,
 		}
 	}
 

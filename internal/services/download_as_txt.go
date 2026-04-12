@@ -37,7 +37,6 @@ func (s *Service) DownloadAsTxt(w http.ResponseWriter, r *http.Request, text, fo
 
 	err3 := s.Repository.UpdateAsciiOutputsTable(r.Context(), id)
 	if err3 != nil {
-		fmt.Println(err3.Details)
 		return err3
 	}
 	return nil

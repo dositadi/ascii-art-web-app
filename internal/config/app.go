@@ -95,7 +95,7 @@ func (a *App) Run() {
 	}
 
 	server := http.Server{
-		Addr:              ":8082",
+		Addr:              ":8081",
 		Handler:           a.Router,
 		WriteTimeout:      10 * time.Second,
 		IdleTimeout:       10 * time.Second,
