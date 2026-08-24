@@ -2,20 +2,20 @@ package repository
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
+	"github.com/jackc/pgx/v5"
 )
 
 func (r *ServiceRepo) GetTableLenght(ctx context.Context, user_id, font string) (int, *m.Error) {
-	var row *sql.Row
+	var row pgx.Row
 
 	if font == "" {
-		row = r.DB.QueryRowContext(ctx, h.GET_TABLE_LENGHT, user_id)
+		row = r.DB.QueryRow(ctx, h.GET_TABLE_LENGHT, user_id)
 	} else {
-		row = r.DB.QueryRowContext(ctx, h.GET_TABLE_LENGHT_WITH_FONT, user_id, font)
+		row = r.DB.QueryRow(ctx, h.GET_TABLE_LENGHT_WITH_FONT, user_id, font)
 	}
 
 	var length int

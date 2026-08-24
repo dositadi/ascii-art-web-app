@@ -12,7 +12,7 @@ type AsciiServices interface {
 	// Auth Handlers
 	RegisterUser(ctx context.Context, name, email, password string) *m.Error
 	LoginUser(ctx context.Context, email *string, password string) (m.ActiveUser, *m.Error)
-	CheckDBHealth() *m.Error
+	CheckDBHealth(ctx context.Context) *m.Error
 
 	// Render Page functions
 	RenderAsciiArtPage(w http.ResponseWriter, r *http.Request) *m.Error
@@ -56,7 +56,7 @@ func (s *Handler) ServerErrorPageHandler(w http.ResponseWriter, r *http.Request)
 }
 
 func (s *Handler) HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
-	if err := s.Service.CheckDBHealth(); err != nil {
+	if err := s.Service.CheckDBHealth(r.Context()); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("Connection failed!."))
 	}

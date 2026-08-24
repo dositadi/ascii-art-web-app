@@ -2,19 +2,19 @@ package repository
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
+	"github.com/jackc/pgx/v5"
 )
 
 func (r *ServiceRepo) GetAllUsersSavedAscii(ctx context.Context, user_id string, limit, offset int, font string) ([]m.Ascii, *m.Error) {
-	var rows *sql.Rows
+	var rows pgx.Rows
 	var err error
-                    
+
 	if font == "" {
-		rows, err = r.DB.QueryContext(ctx, h.GET_ALL_USER_SAVED_ASCII, user_id, limit, offset)
+		rows, err = r.DB.Query(ctx, h.GET_ALL_USER_SAVED_ASCII, user_id, limit, offset)
 		if err != nil {
 			fmt.Println(err.Error())
 			return nil, &m.Error{
@@ -24,7 +24,7 @@ func (r *ServiceRepo) GetAllUsersSavedAscii(ctx context.Context, user_id string,
 			}
 		}
 	} else {
-		rows, err = r.DB.QueryContext(ctx, h.FILTER_ASCII, user_id, font, limit, offset)
+		rows, err = r.DB.Query(ctx, h.FILTER_ASCII, user_id, font, limit, offset)
 		if err != nil {
 			fmt.Println(err.Error())
 			return nil, &m.Error{

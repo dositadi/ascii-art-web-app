@@ -86,7 +86,7 @@ func (s *Service) RenderHistoryPage(w http.ResponseWriter, r *http.Request, font
 	if err5 != nil {
 		return &m.Error{
 			Error:   h.PAGE_PARSING_CODE,
-			Details: err.Error(),
+			Details: err5.Error,
 			Code:    h.SERVER_ERR,
 		}
 	}

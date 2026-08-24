@@ -89,21 +89,21 @@ const (
 // Repo Query statements
 const (
 	// Users table
-	INSERT_INTO_USERS                = "INSERT INTO users (id,name,email,hashed_password) VALUES (?,?,?,?)"
-	CHECK_USER_EXISTS                = "SELECT EXISTS (SELECT 1 FROM users WHERE email=?)"
-	GET_HPASS_ID_AND_NAME_WITH_EMAIL = "SELECT id, name, hashed_password FROM users WHERE email=? LIMIT 1"
-	GET_HPASS_ID_AND_NAME_WITH_ID    = "SELECT id, name, hashed_password FROM users WHERE id=? LIMIT 1"
+	INSERT_INTO_USERS                = "INSERT INTO users (id,name,email,hashed_password) VALUES ($1,$2,$3,$4)"
+	CHECK_USER_EXISTS                = "SELECT EXISTS (SELECT 1 FROM users WHERE email=$1)"
+	GET_HPASS_ID_AND_NAME_WITH_EMAIL = "SELECT id, name, hashed_password FROM users WHERE email=$1 LIMIT 1"
+	GET_HPASS_ID_AND_NAME_WITH_ID    = "SELECT id, name, hashed_password FROM users WHERE id=$1 LIMIT 1"
 
 	// AsciiTexts Table
-	INSERT_INTO_ASCII_TEXTS      = "INSERT INTO ascii_outputs (id,user_id,input_text,font,ascii_text) VALUES (?,?,?,?,?)"
-	GET_ALL_USER_SAVED_ASCII     = "SELECT id, input_text, font, ascii_text, created_at FROM ascii_outputs WHERE user_id=? ORDER BY created_at DESC LIMIT ? OFFSET ?"
-	CHECK_ASCII_EXISTS           = "SELECT EXISTS (SELECT 1 FROM ascii_outputs WHERE id=?)"
-	DELETE_ASCII                 = "DELETE FROM ascii_outputs WHERE id=?"
-	FILTER_ASCII                 = "SELECT id, input_text, font, ascii_text, created_at FROM ascii_outputs WHERE user_id=? AND font=? ORDER BY created_at DESC LIMIT ? OFFSET ?"
-	CLEAR_ALL_USER_DATA          = "DELETE FROM ascii_outputs WHERE user_id=?"
-	GET_TABLE_LENGHT_WITH_FONT   = "SELECT COUNT(*) FROM ascii_outputs WHERE user_id=? AND font=?"
-	GET_TABLE_LENGHT             = "SELECT COUNT(*) FROM ascii_outputs WHERE user_id=?"
-	UPDATE_ASCII_DOWNLOAD_AS_TXT = "UPDATE ascii_outputs SET downloaded_as_txt = true where id = ?"
+	INSERT_INTO_ASCII_TEXTS      = "INSERT INTO ascii_outputs (id,user_id,input_text,font,ascii_text) VALUES ($1,$2,$3,$4,$5)"
+	GET_ALL_USER_SAVED_ASCII     = "SELECT id, input_text, font, ascii_text, created_at FROM ascii_outputs WHERE user_id=$1 ORDER BY created_at DESC LIMIT $2 OFFSET $3"
+	CHECK_ASCII_EXISTS           = "SELECT EXISTS (SELECT 1 FROM ascii_outputs WHERE id=$1)"
+	DELETE_ASCII                 = "DELETE FROM ascii_outputs WHERE id=$1"
+	FILTER_ASCII                 = "SELECT id, input_text, font, ascii_text, created_at FROM ascii_outputs WHERE user_id=$1 AND font=$2 ORDER BY created_at DESC LIMIT $3 OFFSET $4"
+	CLEAR_ALL_USER_DATA          = "DELETE FROM ascii_outputs WHERE user_id=$1"
+	GET_TABLE_LENGHT_WITH_FONT   = "SELECT COUNT(*) FROM ascii_outputs WHERE user_id=$1 AND font=$2"
+	GET_TABLE_LENGHT             = "SELECT COUNT(*) FROM ascii_outputs WHERE user_id=$1"
+	UPDATE_ASCII_DOWNLOAD_AS_TXT = "UPDATE ascii_outputs SET downloaded_as_txt = true where id = $1"
 )
 
 // Ascii keys

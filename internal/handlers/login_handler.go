@@ -35,13 +35,13 @@ func (s *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	refreshToken, err2 := h.GenerateRefreshJWT(activeUser)
 	if err2 != nil {
-		s.Service.RenderLoginPage(w, r, &err.Details)
+		s.Service.RenderLoginPage(w, r, &err2.Details)
 		return
 	}
 
 	accessToken, err3 := h.GenerateAccessJWT(activeUser)
 	if err3 != nil {
-		s.Service.RenderLoginPage(w, r, &err.Details)
+		s.Service.RenderLoginPage(w, r, &err3.Details)
 		return
 	}
 

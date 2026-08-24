@@ -2,7 +2,6 @@ package config
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -14,12 +13,13 @@ import (
 	r "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/internal/repository"
 	s "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/internal/services"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
-	_ "github.com/jackc/pgx/v5/stdlib"
+	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
 )
 
 type App struct {
-	DB     *sql.DB
+	DB     *pgxpool.Pool
 	Router *http.ServeMux
 }
 
@@ -32,7 +32,8 @@ func (a *App) InitializeFileServers() {
 	a.Router.Handle("GET /web/assets/", http.StripPrefix("/web/assets/", webImageFileServer))
 }
 
-func (a *App) InitializeRoutes() {
+func (a *App) Initialize() {
+	a.InitializeDatabase()
 	a.Router = http.NewServeMux()
 
 	dB := r.ConstructNewRepo(a.DB)
@@ -65,6 +66,7 @@ func (a *App) InitializeRoutes() {
 	a.Router.Handle("GET "+h.DOWNLOAD_ASCII_AS_TXT_ROUTE, http.HandlerFunc(handler.DownloadAsciiTxtHandler))
 
 	a.Router.HandleFunc("GET /health", handler.HealthCheckHandler)
+	a.InitializeFileServers()
 }
 
 func (a *App) InitializeDatabase() {
@@ -74,16 +76,11 @@ func (a *App) InitializeDatabase() {
 		return
 	}
 
-	a.DB.SetConnMaxIdleTime(10 * time.Second)
-	a.DB.SetConnMaxLifetime(20 * time.Second)
-	a.DB.SetMaxIdleConns(20)
-	a.DB.SetMaxOpenConns(20)
-
 	ctx, cancelPing := context.WithTimeout(context.Background(), time.Duration(2*time.Minute))
 
 	defer cancelPing()
 
-	err := a.DB.PingContext(ctx)
+	err := a.DB.Ping(ctx)
 	if err != nil {
 		log.Fatal("Unable to connect to the database!: ", err)
 		return
@@ -92,18 +89,22 @@ func (a *App) InitializeDatabase() {
 	fmt.Println("DB connected!")
 }
 
-func (a *App) connectToDB() *sql.DB {
+func (a *App) connectToDB() *pgxpool.Pool {
 	godotenv.Load()
 
-	var db *sql.DB
 	url := os.Getenv("POSTGRES_DB_URL")
 	var err error
+	config, err := pgxpool.ParseConfig(url)
+	if err != nil {
+		// handle error
+	}
+	config.ConnConfig.DefaultQueryExecMode = pgx.QueryExecModeSimpleProtocol
 
 	for i := 0; i < 10; i++ {
-		db, err = sql.Open("pgx", url)
+		pool, err := pgxpool.NewWithConfig(context.Background(), config)
 
 		if err == nil {
-			return db
+			return pool
 		}
 
 		time.Sleep(2 * time.Second)
@@ -116,7 +117,7 @@ func (a *App) connectToDB() *sql.DB {
 }
 
 func (a *App) Run() {
-	a.InitializeDatabase()
+	a.Initialize()
 
 	port := os.Getenv("PORT")
 

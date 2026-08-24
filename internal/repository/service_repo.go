@@ -7,13 +7,14 @@ import (
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 type ServiceRepo struct {
-	DB *sql.DB
+	DB *pgxpool.Pool
 }
 
-func ConstructNewRepo(db *sql.DB) *ServiceRepo {
+func ConstructNewRepo(db *pgxpool.Pool) *ServiceRepo {
 	return &ServiceRepo{
 		DB: db,
 	}
@@ -21,7 +22,7 @@ func ConstructNewRepo(db *sql.DB) *ServiceRepo {
 
 func (r *ServiceRepo) CheckIfUserExists(ctx context.Context, email string) (bool, *m.Error) {
 	var exists bool
-	row := r.DB.QueryRowContext(ctx, h.CHECK_USER_EXISTS, email)
+	row := r.DB.QueryRow(ctx, h.CHECK_USER_EXISTS, email)
 
 	if err := row.Scan(&exists); err != nil {
 		return false, &m.Error{
@@ -37,7 +38,7 @@ func (r *ServiceRepo) CheckIfUserExists(ctx context.Context, email string) (bool
 func (r *ServiceRepo) CheckIfAsciiExists(ctx context.Context, id string) (bool, *m.Error) {
 	var exists bool
 
-	row := r.DB.QueryRowContext(ctx, h.CHECK_ASCII_EXISTS, id)
+	row := r.DB.QueryRow(ctx, h.CHECK_ASCII_EXISTS, id)
 
 	if err := row.Scan(&exists); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {

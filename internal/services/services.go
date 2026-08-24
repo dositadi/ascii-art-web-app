@@ -16,7 +16,7 @@ type Repo interface {
 	// User CRUD operations
 	InsertUser(ctx context.Context, user m.User) *m.Error
 	GetHashedPasswordIDAndName(ctx context.Context, user_id, email *string) (string, string, string, *m.Error)
-	PingDB() *m.Error
+	PingDB(ctx context.Context) *m.Error
 
 	// Ascii table CRUD operations
 	InsertAscii(ctx context.Context, ascii m.Ascii) *m.Error

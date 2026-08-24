@@ -7,17 +7,18 @@ import (
 
 	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
+	"github.com/jackc/pgx/v5"
 )
 
 func (s *ServiceRepo) GetHashedPasswordIDAndName(ctx context.Context, user_id, email *string) (string, string, string, *m.Error) {
-	var row *sql.Row
+	var row pgx.Row
 
 	if user_id != nil {
-		row = s.DB.QueryRowContext(ctx, h.GET_HPASS_ID_AND_NAME_WITH_ID, *user_id)
+		row = s.DB.QueryRow(ctx, h.GET_HPASS_ID_AND_NAME_WITH_ID, *user_id)
 	}
 
 	if email != nil {
-		row = s.DB.QueryRowContext(ctx, h.GET_HPASS_ID_AND_NAME_WITH_EMAIL, *email)
+		row = s.DB.QueryRow(ctx, h.GET_HPASS_ID_AND_NAME_WITH_EMAIL, *email)
 	}
 
 	var id, name, hashed_password string

@@ -1,9 +1,13 @@
 package repository
 
-import m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
+import (
+	"context"
 
-func (r *ServiceRepo) PingDB() *m.Error {
-	err := r.DB.Ping()
+	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
+)
+
+func (r *ServiceRepo) PingDB(ctx context.Context) *m.Error {
+	err := r.DB.Ping(ctx)
 	if err != nil {
 		return &m.Error{
 			Error:   "Ping error.",
