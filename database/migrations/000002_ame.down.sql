@@ -1,1 +1,1 @@
-DROP TABLE ascii;
+DROP TABLE IF EXISTS ascii;

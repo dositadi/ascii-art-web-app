@@ -1,6 +1,7 @@
 package config
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"log"
@@ -12,9 +13,9 @@ import (
 	mid "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/internal/middleware"
 	r "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/internal/repository"
 	s "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/internal/services"
-	m "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/models"
 	h "acad.learn2earn.ng/git/dositadi/ascii-art-web-stylize/pkg/utils"
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/jackc/pgx/v5/stdlib"
+	"github.com/joho/godotenv"
 )
 
 type App struct {
@@ -66,36 +67,65 @@ func (a *App) InitializeRoutes() {
 	a.Router.HandleFunc("GET /health", handler.HealthCheckHandler)
 }
 
-func (a *App) InitializeDatabase() *m.Error {
-	var err error
-
-	a.DB, err = sql.Open("mysql", os.Getenv("ASCII_DB_URL"))
-
-	if err != nil {
-		return &m.Error{
-			Error:   h.SERVER_ERR,
-			Details: h.SERVER_ERR_DETAIL,
-			Code:    h.SERVER_ERR_CODE,
-		}
+func (a *App) InitializeDatabase() {
+	a.DB = a.connectToDB()
+	if a.DB == nil {
+		log.Fatal("Unable to connect to the database!")
+		return
 	}
 
-	a.DB.SetMaxOpenConns(10)
-	a.DB.SetMaxIdleConns(5)
+	a.DB.SetConnMaxIdleTime(10 * time.Second)
+	a.DB.SetConnMaxLifetime(20 * time.Second)
+	a.DB.SetMaxIdleConns(20)
 	a.DB.SetMaxOpenConns(20)
-	a.DB.SetConnMaxLifetime(time.Duration(10 * time.Minute))
 
-	a.InitializeRoutes()
-	a.InitializeFileServers()
+	ctx, cancelPing := context.WithTimeout(context.Background(), time.Duration(2*time.Minute))
+
+	defer cancelPing()
+
+	err := a.DB.PingContext(ctx)
+	if err != nil {
+		log.Fatal("Unable to connect to the database!: ", err)
+		return
+	}
+
+	fmt.Println("DB connected!")
+}
+
+func (a *App) connectToDB() *sql.DB {
+	godotenv.Load()
+
+	var db *sql.DB
+	url := os.Getenv("POSTGRES_DB_URL")
+	var err error
+
+	for i := 0; i < 10; i++ {
+		db, err = sql.Open("pgx", url)
+
+		if err == nil {
+			return db
+		}
+
+		time.Sleep(2 * time.Second)
+	}
+
+	if err != nil {
+		log.Fatal(err)
+	}
 	return nil
 }
 
 func (a *App) Run() {
-	if err := a.InitializeDatabase(); err != nil {
+	a.InitializeDatabase()
 
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "8081"
 	}
 
 	server := http.Server{
-		Addr:              ":8081",
+		Addr:              ":" + port,
 		Handler:           a.Router,
 		WriteTimeout:      10 * time.Second,
 		IdleTimeout:       10 * time.Second,

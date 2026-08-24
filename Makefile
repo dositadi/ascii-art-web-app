@@ -9,3 +9,6 @@ migrate-down:
 
 seed-into-users:
 	mysql -u username -pPASSWORD blog_db < database/seed/insert_users.sql
+
+push:
+	git add . && git commit -m "${m}" && git push
